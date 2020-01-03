@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Crupee Salary Meter</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+    
+
+  <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+   
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Icon -->
+    <!-- <div class="fadeIn first">
+      <img src="" id="icon" alt="Crupee Salary Calculatorr" />
+    </div> -->
+
+    <!-- Login Form -->
+    <form id="form"  method ="POST" >
+      <input type="text" id="username" class="fadeIn second" name="username" placeholder="login">
+      <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
+      <input type="submit" class="fadeIn fourth" value="Log In" id="login">
+    </form>
+   
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Forgot Password?</a>
+    </div>
+
+  </div>
+</div>
+<script>window.$ = window.jQuery = require('jquery');</script> 
+<script>require('./db-connection.js')</script>
+
+
+</html>
