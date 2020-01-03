@@ -1,21 +1,8 @@
 const { remote, ipcRenderer } = require("electron");
-var mysql = require("mysql");
+const connection = require("./../../service/db-connection");
 
 const empTable = document.getElementById("empTable");
-
-var connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: null,
-  database: "crupee-salary-meter"
-});
-
-connection.connect(function(err) {
-  if (err) {
-    console.log(err.code);
-    console.log(err.fatal);
-  }
-});
+let status = null;
 
 // getting the list of employee
 $queryList = "SELECT * FROM employee_profile";
@@ -23,16 +10,16 @@ connection.query($queryList, (err, rows, field) => {
   if (rows.length > 0) {
     status = true;
     // ipcRenderer.send("employee-list", rows, status);
-    for (i = 0; i < rows.length; i++) {
-      var row = empTable.insertRow(1);
-      var cell1 = row.insertCell(0);
-      var cell2 = row.insertCell(1);
-      var cell3 = row.insertCell(2);
-      var cell4 = row.insertCell(3);
-      var cell5 = row.insertCell(4);
-      var cell6 = row.insertCell(5);
+    for (let i = 0; i < rows.length; i++) {
+      let row = empTable.insertRow(1);
+      let cell1 = row.insertCell(0);
+      let cell2 = row.insertCell(1);
+      let cell3 = row.insertCell(2);
+      let cell4 = row.insertCell(3);
+      let cell5 = row.insertCell(4);
+      let cell6 = row.insertCell(5);
       // create button
-      var button = document.createElement("input");
+      let button = document.createElement("input");
       button.setAttribute("type", "button");
       button.setAttribute("name", "Details");
       button.setAttribute("value", "Details");
@@ -62,9 +49,9 @@ handleDetailsButton = id => {
   ipcRenderer.send("employee-details-id", id);
 };
 
-var addEmployeeBtn = document.getElementById("addEmployee");
+let addEmployeeBtn = document.getElementById("addEmployee");
 addEmployeeBtn.addEventListener("click", e => {
   e.preventDefault();
-  test = true;
+  let test = true;
   ipcRenderer.send("open-add-employee", test);
 });

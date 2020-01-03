@@ -45,7 +45,7 @@ app.on("ready", () => {
   });
 
   // and load the index.html of the app.
-  listW.loadFile("./windows/add/list.html");
+  listW.loadFile("./windows/list/list.html");
 
   // Open the DevTools.
   listW.webContents.openDevTools();
@@ -67,8 +67,9 @@ app.on("ready", () => {
   });
   addW.loadFile("./windows/add/addEmployee.html");
   addW.webContents.openDevTools();
-  addW.on("closed", () => {
-    addW = null;
+  addW.on("close", event => {
+    event.preventDefault();
+    addW.hide();
   });
   // add window finished
 
@@ -103,10 +104,11 @@ app.on("window-all-closed", () => {
 });
 
 ipcMain.on("form-submit", (event, status) => {
-  event.sender.send("form-received", "received");
-  if (status === "true") {
-    win.hide();
-    createListWindow();
+  if (status === true) {
+    loginW.hide();
+    listW.show();
+  } else {
+    event.sender.send("login-failed", "Login Failed");
   }
 });
 
@@ -121,15 +123,15 @@ ipcMain.on("employee-list", (event, rows, status) => {
 // });
 
 ipcMain.on("open-add-employee", (even, test) => {
-  createAddEmployeeWindow();
+  addW.show();
   console.log("add employee form clicked ", test);
 });
 
 // employee details
 ipcMain.on("employee-details-id", (event, id) => {
   console.log("the main page ", id);
-  createAddEmployeeDetailsWindow();
-  addEmployeeDetailsWindow.webContents.send("employee-id", id);
+  detailW.show();
+  detailW.webContents.send("employee-id", id);
 });
 
 // event.sender.send("employee-id", id);
