@@ -90,8 +90,9 @@ app.on("ready", () => {
   detailW.webContents.openDevTools();
 
   // Emitted when the window is closed.
-  detailW.on("closed", () => {
-    detailW = null;
+  detailW.on("close", event => {
+    event.preventDefault();
+    detailW.hide();
   });
   //details window finished
 });
