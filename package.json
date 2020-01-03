@@ -10,10 +10,11 @@
   "author": "Sudip Adhikari",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^7.1.7"
+    "electron": "^7.1.7",
+    "prettier": "^1.19.1"
   },
   "dependencies": {
-    "bootstrap": "^4.1.1",
+    "bootstrap": "^4.4.1",
     "express": "^4.17.1",
     "jquery": "^3.4.1",
     "live-server": "^1.2.1",
