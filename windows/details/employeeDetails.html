@@ -1,15 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Employee Details</title>
-  </head>
-  <body>
-    <h1>Employee Details Page</h1>
-  </body>
-  <script>
-    require("./employeeDetails.js");
-  </script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <title>Employee Details</title>
+  <style>
+    .crupeeEmployeeDetails{padding: 5% 10%}
+    .crupeeEmployeeDetails h1{margin-bottom: 5%}
+    .employeeImg{width: 20%; padding: 0.5em; border: 1px solid #cccccc; border-radius: 3px; float: left}
+    .employeeName{width: 60%; float: left; padding-left: 5%}
+    .employeeName span{display: block; margin-top: 1%}
+    .employeeName span strong{font-width: bold;}
+    .employeeName strong span{color: cornflowerblue; display: inline-block}
+    .crupeeEmployeeTable{margin-top: 2%;}
+    .employeeAvatar{width: 20%; float: left; padding: 0.5em; border: 1px solid #cccccc; border-radius: 3px}
+    .employeeAvatar span{padding-top: 10px; font-style: italic}
+  </style>
+</head>
+<body>
+
+<div class="crupeeEmployeeDetails">
+  <h1>Employee Details</h1>
+  <div class="crupeeEmployeeDetailTop clearfix">
+    <div class="employeeImg">
+      <img src="rajuvai.jpg" alt="" class="img-fluid">
+    </div>
+    <div class="employeeName">
+      <strong>Name: <span>Rajesh Khadka</span></strong>
+      <span> <strong>Designation:</strong> Project Manager</span>
+      <span> <strong>Join Date:</strong> 2018/11/11</span>
+    </div>
+    <div class="employeeAvatar">
+      <img src="kadey.jpg" alt="" class="img-fluid">
+      <span>Avatar: Spiny Babbler</span>
+    </div>
+  </div>
+  <div class="crupeeEmployeeTable">
+    <h3>Salary Details</h3>
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">Month</th>
+        <th scope="col">Basic</th>
+        <th scope="col">Insurance</th>
+        <th scope="col">Provident Fund</th>
+        <th scope="col">Over Time</th>
+        <th scope="col">Food Allowance</th>
+        <th scope="col">Fuel Allowance</th>
+        <th scope="col">In Total (Rs.)</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th scope="row">January</th>
+        <td>2000</td>
+        <td>200</td>
+        <td>20</td>
+        <td>10</td>
+        <td>5</td>
+        <td>0</td>
+        <td>2235</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+        <td>@fat</td>
+        <td>@fat</td>
+        <td>@fat</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+<script>
+  require("./employeeDetails.js");
+</script>
 </html>
