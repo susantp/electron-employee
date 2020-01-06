@@ -20,7 +20,7 @@
             type="text"
             class="form-control"
             placeholder="Enter full name"
-            id="name"
+            id="fullname"
             value=""
           />
         </div>
@@ -73,8 +73,8 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Enter fuel allowance"
-            id="fuelAllowance"
+            placeholder="Enter insurance amount"
+            id="insurance"
             value=""
           />
         </div>
@@ -145,10 +145,21 @@
           />
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="form-group">
+          <label for="address">Upload Image:</label>
+          <input type="file" name="" id="uploadFile" />
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="empDetailsBtn">
+          Submit
+        </button>
       </form>
     </div>
   </body>
+  <script>
+    window.$ = window.jQuery = require("jquery");
+  </script>
+
   <script>
     require("./addEmployee.js");
   </script>
