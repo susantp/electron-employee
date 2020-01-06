@@ -1,6 +1,33 @@
-const { remote, ipcRenderer } = require("electron");
+const electron = require("electron");
+const remote = electron.remote;
+const ipcRenderer = electron.ipcRenderer;
+const Menu = remote.Menu;
+const MenuItem = remote.MenuItem;
 const connection = require("./../../service/db-connection");
 
+const menu = new Menu();
+menu.append(
+  new MenuItem({
+    label: "Employee",
+    submenu: [
+      {
+        label: "Add Employee",
+        click: function() {
+          ipcRenderer.send("show-prefW");
+        }
+      },
+      { label: "Edit Employee", click: () => {} }
+    ]
+  })
+);
+menu.append(
+  new MenuItem({
+    label: "Exit",
+    click: function() {}
+  })
+);
+
+Menu.setApplicationMenu(menu);
 const empTable = document.getElementById("empTable");
 let status = null;
 
