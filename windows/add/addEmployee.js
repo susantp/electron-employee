@@ -1,11 +1,13 @@
 const { ipcRenderer, dialog } = require("electron");
+const app = require("electron").remote.app;
 var fs = require("fs");
-var os = require("os");
+const http = require("http");
 const connection = require("./../../service/db-connection");
 
 // when submit button clicked
 var empDetailsBtn = document.getElementById("empDetailsBtn");
-empDetailsBtn.addEventListener("click", event => {
+const submitForm = document.querySelector("#form");
+submitForm.addEventListener("submit", event => {
   event.preventDefault();
   var fullname = document.getElementById("fullname").value;
   var joined_date = document.getElementById("joinedDate").value;
@@ -19,9 +21,13 @@ empDetailsBtn.addEventListener("click", event => {
   var designation = document.getElementById("designation").value;
   var email = document.getElementById("email").value;
   var address = document.getElementById("address").value;
-  // var uploadFilePath = document.getElementById("uploadFile").value;
-
-  var uploadFilePath = "sudip.jpg";
+  var filePath = document.getElementById("filetoupload").value;
+  var fileName = filePath.replace(/^.*[\\\/]/, "");
+  fs.rename(filePath, __dirname + "/images/" + fileName, error => {
+    if (error) {
+      console.log("error occured moving image");
+    }
+  });
 
   $query =
     "INSERT INTO employee_profile (name,image,joined_date,food_allowance,fuel_allowance,insurance,basic_salary,provident_fund,contact_number,dob,designation,email,address) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -29,7 +35,7 @@ empDetailsBtn.addEventListener("click", event => {
     $query,
     [
       fullname,
-      uploadFilePath,
+      fileName,
       joined_date,
       food_allowance,
       fuel_allowance,
@@ -43,7 +49,9 @@ empDetailsBtn.addEventListener("click", event => {
       address
     ],
     (error, rows, field) => {
-      if (error) console.log(error.message);
+      if (error) {
+        console.log(error.message);
+      }
       console.log(rows);
     }
   );

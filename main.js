@@ -7,6 +7,7 @@ let loginW = null;
 let listW = null;
 let detailW = null;
 let addW = null;
+let generateSalaryW = null;
 
 app.on("ready", () => {
   // Create the login window.
@@ -95,13 +96,38 @@ app.on("ready", () => {
     detailW.hide();
   });
   //details window finished
-});
 
-// Quit when all windows are closed.
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
+  // generate salary window
+
+  generateSalaryW = new BrowserWindow({
+    width: 1200,
+    height: 600,
+    show: false,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+
+  // and load the generateSalary.html of the app.
+  generateSalaryW.loadFile("./windows/generate/generateSalary.html");
+
+  // Open the DevTools.
+  generateSalaryW.webContents.openDevTools();
+
+  // Emitted when the window is closed.
+  generateSalaryW.on("close", event => {
+    event.preventDefault();
+    generateSalaryW.hide();
+  });
+
+  // generate salary window finished
+
+  // Quit when all windows are closed.
+  app.on("window-all-closed", () => {
+    if (process.platform !== "darwin") {
+      app.quit();
+    }
+  });
 });
 
 ipcMain.on("form-submit", (event, status) => {
@@ -135,4 +161,7 @@ ipcMain.on("employee-details-id", (event, id) => {
   detailW.webContents.send("employee-id", id);
 });
 
-// event.sender.send("employee-id", id);
+// open generate salary window
+ipcMain.on("open-generate-salary", (event, args) => {
+  generateSalaryW.show();
+});

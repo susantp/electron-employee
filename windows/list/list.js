@@ -5,32 +5,6 @@ const Menu = remote.Menu;
 const MenuItem = remote.MenuItem;
 const connection = require("./../../service/db-connection");
 
-const menu = new Menu();
-menu.append(
-  new MenuItem({
-    label: "Employee",
-    submenu: [
-      {
-        label: "Add Employee",
-        click: function() {
-          ipcRenderer.send("show-prefW");
-        }
-      },
-      { label: "Edit Employee", click: () => {} }
-    ]
-  })
-);
-menu.append(
-  new MenuItem({
-    label: "Exit",
-    click: function() {}
-  })
-);
-
-Menu.setApplicationMenu(menu);
-const empTable = document.getElementById("empTable");
-let status = null;
-
 // getting the list of employee
 $queryList = "SELECT * FROM employee_profile";
 connection.query($queryList, (err, rows, field) => {
@@ -81,4 +55,11 @@ addEmployeeBtn.addEventListener("click", e => {
   e.preventDefault();
   let test = true;
   ipcRenderer.send("open-add-employee", test);
+});
+
+let generateSalary = document.getElementById("generateSalary");
+generateSalary.addEventListener("click", e => {
+  e.preventDefault();
+  let test = true;
+  ipcRenderer.send("open-generate-salary", test);
 });
