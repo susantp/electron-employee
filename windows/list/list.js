@@ -33,7 +33,7 @@ connection.query($queryList, (err, rows, field) => {
       cell4.innerHTML = rows[i].contact_number;
       cell5.innerHTML = rows[i].address;
       cell6.appendChild(button);
-      //   var id = document.getElementsByTagName("button")[1].getAttribute("id");
+
       button.addEventListener("click", event => {
         event.preventDefault();
         // console.log(event.target.id);
