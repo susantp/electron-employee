@@ -49,6 +49,18 @@ $(document).ready(function() {
   // salary after deducting insurance on salary after deducting pf
   var salaryDeductingInsurance;
 
+  // salary adding food allowance
+  var salaryAddingFood;
+
+  // salary adding fuel allowance
+  var salaryAddingFuel;
+
+  // advance amount
+  var advanceAmount;
+
+  // grandTotalSalary
+  var grandTotalSalary;
+
   const employeeList = "SELECT * FROM employee_profile";
   //   get all employee from table and add it to dropdown
   connection.query(employeeList, (error, rows, field) => {
@@ -184,6 +196,29 @@ $(document).ready(function() {
     if (salaryDeductingPf) {
       salaryDeductingInsurance = salaryDeductingPf - insurance;
       $("#salaryDeductingInsurance").val(salaryDeductingInsurance);
+    }
+
+    // salary adding food allowance
+    if (salaryDeductingInsurance) {
+      salaryAddingFood =
+        parseFloat(salaryDeductingInsurance) + parseFloat(foodAllowance);
+      $("#salaryAfterFood").val(salaryAddingFood);
+    }
+
+    // salary adding fuel allowance
+    if (salaryAddingFood) {
+      salaryAddingFuel =
+        parseFloat(salaryAddingFood) + parseFloat(fuelAllowance);
+      $("#salaryAfterFuel").val(salaryAddingFuel);
+    }
+  });
+
+  // advamce amount on key up
+  $("#advanceAmount").keyup(function() {
+    advanceAmount = $("#advanceAmount").val();
+    if (salaryAddingFuel) {
+      grandTotalSalary = salaryAddingFuel - advanceAmount;
+      $("#grandTotalSalary").val(grandTotalSalary);
     }
   });
 
