@@ -3,12 +3,52 @@ const connection = require("./../../service/db-connection");
 
 $(document).ready(function() {
   var selectedElement = document.getElementById("selectEmployee");
+  // selected employee
   var selectedUserId;
+
+  // selected year for generating salary
   var selectedYear;
+
+  // selected month for generating salary
   var selectedMonth;
+
+  // total working days*8
   var totalWorkingHours;
+
+  // hours after deducting absent hours
   var totalPresentHours;
   var basicSalary;
+
+  // provident fund of selected employee
+  var pf;
+
+  // insurance of selected employee
+  var insurance;
+
+  // fuel allowance of selected employee
+  var fuelAllowance;
+
+  // food allowance of selected employee
+  var foodAllowance;
+
+  // each hour salary of total working days
+  var eachHourSalary;
+
+  // total net salary of of present hours
+  var netSalary;
+
+  // total over time amount
+  var otAmount;
+
+  // salary adding ot amount on net salary
+  var netSalaryAddingOt;
+
+  // salary after deducting pf on total net salary
+  var salaryDeductingPf;
+
+  // salary after deducting insurance on salary after deducting pf
+  var salaryDeductingInsurance;
+
   const employeeList = "SELECT * FROM employee_profile";
   //   get all employee from table and add it to dropdown
   connection.query(employeeList, (error, rows, field) => {
@@ -36,8 +76,23 @@ $(document).ready(function() {
       $query1 = "SELECT * FROM employee_profile WHERE id=? ";
       connection.query($query1, [selectedUserId], (error, rows, field) => {
         if (error) console.log("error occured connecting database ", error);
-        $("#basicSalary").val(rows[0].basic_salary);
-        basicSalary = $("#basicSalary").val();
+        var ebasicSalary = rows[0].basic_salary;
+        $("#basicSalary").val(ebasicSalary);
+        var ePf = rows[0].provident_fund;
+        var eFoodAllowance = rows[0].food_allowance;
+        var eFuelAllowance = rows[0].fuel_allowance;
+        var eInsurance = rows[0].insurance;
+
+        $("#fuelAllowance").val(eFuelAllowance);
+        $("#foodAllowance").val(eFoodAllowance);
+        $("#pf").val(ePf);
+        $("#insurance").val(eInsurance);
+        // set the basic info
+        basicSalary = ebasicSalary;
+        pf = ePf;
+        insurance = eInsurance;
+        fuelAllowance = eFuelAllowance;
+        foodAllowance = eFoodAllowance;
       });
     }
   }
@@ -75,6 +130,16 @@ $(document).ready(function() {
 
     $("#totalWorkingHours").html(`Total working hours is  ${workingHours}`);
     totalWorkingHours = workingHours;
+
+    // calculate each salary
+    eachHourSalary = basicSalary / totalWorkingHours;
+    if (!isFinite(eachHourSalary)) {
+      eachHourSalary = 0;
+      $("#eachHourSalary").val(`${eachHourSalary}`);
+    } else {
+      $("#eachHourSalary").val(`${eachHourSalary}`);
+    }
+    test1();
   });
 
   //   total present days on a key up
@@ -89,18 +154,49 @@ $(document).ready(function() {
   //   absent hours on key up
   $("#totalAbsentHour").keyup(function() {
     const absentHours = $("#totalAbsentHour").val();
+    // total present days- absent hours
     const hoursExcluding = totalPresentHours - absentHours;
     totalHoursExcluding = hoursExcluding;
     $("#totalHoursExcluding").html(
       `Total hours after excluding ${totalHoursExcluding}`
     );
     console.log("total hours excluding ", totalHoursExcluding);
+    netSalary = totalHoursExcluding * eachHourSalary;
+    $("#netSalary").val(netSalary);
   });
 
-  // on user select retrieve from database
+  // OT amount on key up
+  $("#otAmount").keyup(function() {
+    otAmount = $("#otAmount").val();
+    // salary adding ot amount
+    netSalaryAddingOt = parseFloat(netSalary) + parseFloat(otAmount);
+    $("#netSalaryAddingOt").val(netSalaryAddingOt);
+
+    // salary deduction pf
+    if (netSalaryAddingOt) {
+      salaryDeductingPf =
+        parseFloat(netSalaryAddingOt) -
+        (parseFloat(pf) / 100) * parseFloat(netSalaryAddingOt);
+      $("#salaryDeductingPf").val(salaryDeductingPf);
+    }
+
+    //salary deducting insurance
+    if (salaryDeductingPf) {
+      salaryDeductingInsurance = salaryDeductingPf - insurance;
+      $("#salaryDeductingInsurance").val(salaryDeductingInsurance);
+    }
+  });
 
   // test function
-  // test1 = () => {
-  //   console.log(" selected user id is ", basicSalary);
-  // };
+  test1 = () => {
+    console.log(
+      " selected user id is ",
+      basicSalary,
+      insurance,
+      pf,
+      foodAllowance,
+      fuelAllowance,
+      eachHourSalary
+    );
+  };
 });
