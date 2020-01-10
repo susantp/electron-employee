@@ -4,7 +4,6 @@
   "description": "this is salary meter",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron ."
   },
   "author": "Sudip Adhikari",
@@ -15,7 +14,6 @@
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
-    "electron-save-file": "^1.0.2",
     "express": "^4.17.1",
     "formidable": "^1.2.1",
     "http": "0.0.0",

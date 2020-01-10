@@ -19,18 +19,18 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <title>Employee Details</title>
-   
+
   </head>
   <body>
     <div class="crupeeEmployeeDetails">
       <!-- dropdown -->
-    
-  
-        
+
+
+
       <h1>Employee Details</h1>
       <div class="crupeeEmployeeDetailTop clearfix">
         <div class="employeeImg">
-          <img src="rajuvai.jpg" alt="" class="img-fluid" />
+          <img src="rajuvai.jpg" alt="" class="img-fluid" id="profImg" />
         </div>
         <div class="employeeName">
           <strong>Name: <span id="fullname"></span></strong>
@@ -53,26 +53,26 @@
           <div class="col-md-6">
               <h3>Salary Details</h3>
           </div>
-        
+
           <div class="col-md-6">
 
               <div class="dropdown selectYear">
-                  
+
                       <span> Select a year: </span>
-                      <select id="select"> 
-                          <option value="2019">2019</option> 
-                          <option value="2020" selected>2020</option> 
-                          <option value="2021">2021</option> 
-                          <option value="2022">2022</option> 
+                      <select id="select">
+                          <option value="2019">2019</option>
+                          <option value="2020" selected>2020</option>
+                          <option value="2021">2021</option>
+                          <option value="2022">2022</option>
                           <option value="2023">2023</option>
                           <option value="2024">2024</option>
                           <option value="2025">2025</option>
-                      </select> 
-                  
+                      </select>
+
                 </div>
           </div>
         </div>
-       
+
         <table class="table table-bordered">
           <thead class="thead-dark">
             <tr>
@@ -121,10 +121,10 @@
       </div>
     </div>
 
-    
+
     </div>
   </body>
- 
+
   <script>window.$ = window.jQuery = require('jquery');</script>
   <script>
       require("./employeeDetails.js");
