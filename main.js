@@ -1,8 +1,9 @@
 const electron = require("electron");
+const ipcMain = electron.ipcMain;
 const BrowserWindow = electron.BrowserWindow;
 const app = electron.app;
-const ipcMain = electron.ipcMain;
-
+const os = require("os");
+const dialog = electron.dialog;
 let loginW = null;
 let listW = null;
 let detailW = null;
@@ -164,4 +165,19 @@ ipcMain.on("employee-details-id", (event, id) => {
 // open generate salary window
 ipcMain.on("open-generate-salary", (event, args) => {
   generateSalaryW.show();
+});
+
+ipcMain.on("open-file-dialog-for-file", function(event) {
+  dialog
+    .showOpenDialog(addW, {
+      properties: ["openFile"],
+      filters: [{ name: "Images", extensions: ["jpg", "jpeg", "png", "gif"] }]
+    })
+    .then(result => {
+      console.log(result.canceled);
+      event.sender.send("selected-file", result.filePaths[0]);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });

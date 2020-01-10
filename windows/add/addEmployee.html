@@ -13,9 +13,9 @@
   <body>
     <div class="container" style="margin-top: 30px">
       <h1>Add Employee form</h1>
-      <form id="form">
+      <form id="form" enctype="multipart/form-data">
         <div class="form-group">
-          <label for="name">Full Name:</label>
+          <label for="fullname">Full Name:</label>
           <input
             type="text"
             class="form-control"
@@ -147,7 +147,7 @@
 
         <div class="form-group">
           <label for="address">Upload Image:</label>
-          <input type="file" name="" id="filetoupload" name="filetoupload" />
+          <input type="file" name="" id="fileToUpload" name="fileToUpload" />
         </div>
 
         <button type="submit" class="btn btn-primary" id="empDetailsBtn">
