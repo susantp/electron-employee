@@ -2,8 +2,8 @@ const electron = require("electron");
 const ipcMain = electron.ipcMain;
 const BrowserWindow = electron.BrowserWindow;
 const app = electron.app;
-const os = require("os");
 const dialog = electron.dialog;
+
 let loginW = null;
 let listW = null;
 let detailW = null;
@@ -12,9 +12,11 @@ let generateSalaryW = null;
 
 app.on("ready", () => {
   // Create the login window.
+  const screen = electron.screen;
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   loginW = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: width,
+    height: height,
     show: false,
     webPreferences: {
       nodeIntegration: true
@@ -38,8 +40,8 @@ app.on("ready", () => {
 
   // Create the list window.
   listW = new BrowserWindow({
-    width: 900,
-    height: 600,
+    width: width,
+    height: height,
     show: false,
     webPreferences: {
       nodeIntegration: true
@@ -77,8 +79,8 @@ app.on("ready", () => {
 
   // employee details window
   detailW = new BrowserWindow({
-    width: 1200,
-    height: 600,
+    width: width,
+    height: height,
     show: false,
     webPreferences: {
       nodeIntegration: true
