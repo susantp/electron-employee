@@ -8,6 +8,7 @@ let loginW = null;
 let listW = null;
 let detailW = null;
 let addW = null;
+let editW = null;
 let generateSalaryW = null;
 
 app.on("ready", () => {
@@ -97,6 +98,30 @@ app.on("ready", () => {
     addW.hide();
   });
   // add window finished
+
+  // edit window started
+  editW = new BrowserWindow({
+    width: 800,
+    height: 600,
+    show: false,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+  editW
+    .loadFile("./windows/edit/editEmployee.html")
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  editW.webContents.openDevTools();
+  editW.on("close", event => {
+    event.preventDefault();
+    editW.hide();
+  });
+  // edit widow finished
 
   // employee details window
   detailW = new BrowserWindow({
