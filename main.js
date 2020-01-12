@@ -24,7 +24,14 @@ app.on("ready", () => {
   });
 
   // and load the index.html of the app.
-  loginW.loadFile("./windows/login/index.html");
+  loginW
+    .loadFile("./windows/login/index.html")
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
   // Open the DevTools.
   loginW.webContents.openDevTools();
@@ -49,7 +56,14 @@ app.on("ready", () => {
   });
 
   // and load the index.html of the app.
-  listW.loadFile("./windows/list/list.html");
+  listW
+    .loadFile("./windows/list/list.html")
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
   // Open the DevTools.
   listW.webContents.openDevTools();
@@ -69,7 +83,14 @@ app.on("ready", () => {
       nodeIntegration: true
     }
   });
-  addW.loadFile("./windows/add/addEmployee.html");
+  addW
+    .loadFile("./windows/add/addEmployee.html")
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
   addW.webContents.openDevTools();
   addW.on("close", event => {
     event.preventDefault();
@@ -88,7 +109,14 @@ app.on("ready", () => {
   });
 
   // and load the employeeDetails.html of the app.
-  detailW.loadFile("./windows/details/employeeDetails.html");
+  detailW
+    .loadFile("./windows/details/employeeDetails.html")
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
   // Open the DevTools.
   detailW.webContents.openDevTools();
@@ -112,7 +140,14 @@ app.on("ready", () => {
   });
 
   // and load the generateSalary.html of the app.
-  generateSalaryW.loadFile("./windows/generate/generateSalary.html");
+  generateSalaryW
+    .loadFile("./windows/generate/generateSalary.html")
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
   // Open the DevTools.
   generateSalaryW.webContents.openDevTools();

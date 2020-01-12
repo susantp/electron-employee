@@ -1,4 +1,4 @@
-const { ipcRenderer, dialog } = require("electron");
+const { ipcRenderer } = require("electron");
 const connection = require("./../../service/db-connection");
 const app = require("electron").remote.app;
 
