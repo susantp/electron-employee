@@ -27,20 +27,33 @@
     <div class="crupeeEmployeeDetails">
       <!-- dropdown -->
 
-      <h1>Employee Details</h1>
+      <h1 id="salaryDetails"></h1>
       <div class="crupeeEmployeeDetailTop clearfix">
         <div class="employeeImg">
           <img src="placeholder.png" alt="" class="img-fluid" id="profImg" />
         </div>
         <div class="employeeName">
-          <strong>Name: <span id="fullname"></span></strong>
+          <span
+            ><strong>Name: <span id="fullname"></span> </strong
+          ></span>
           <span>
-            <strong>Designation:<span id="pm"> Project Manager</span></strong>
+            <strong>Designation: <span id="designation"></span></strong>
           </span>
           <span>
-            <strong>Join Date:</strong
-            ><span id="joinedDate"> 2018/11/11</span></span
-          >
+            <strong>Join Date: <span id="joinedDate"></span> </strong>
+          </span>
+          <span>
+            <strong>Email: <span id="email"></span> </strong>
+          </span>
+          <span>
+            <strong>Address: <span id="address"></span> </strong>
+          </span>
+          <span>
+            <strong>Contact Number: <span id="contactNumber"></span> </strong>
+          </span>
+          <span>
+            <strong>Date of birth: <span id="dob"></span> </strong>
+          </span>
         </div>
         <div class="employeeAvatar">
           <img src="kadey.jpg" alt="" class="img-fluid" />
@@ -51,15 +64,16 @@
         <!-- salary details -->
         <div class="row">
           <div class="col-md-6">
-            <h3>Salary Details</h3>
+            <h3 id="salaryDa"></h3>
           </div>
 
           <div class="col-md-6">
             <div class="dropdown selectYear">
               <span> Select a year: </span>
               <select id="select">
+                <option value="" selected>Please select a year</option>
                 <option value="2019">2019</option>
-                <option value="2020" selected>2020</option>
+                <option value="2020">2020</option>
                 <option value="2021">2021</option>
                 <option value="2022">2022</option>
                 <option value="2023">2023</option>
@@ -70,7 +84,8 @@
           </div>
         </div>
 
-        <table class="table table-bordered">
+        <!-- table -->
+        <table class="table table-bordered" id="table">
           <thead class="thead-dark">
             <tr>
               <th scope="col">Month</th>
@@ -115,6 +130,7 @@
             </tr>
           </tbody>
         </table>
+        <!-- end of table -->
       </div>
     </div>
   </body>

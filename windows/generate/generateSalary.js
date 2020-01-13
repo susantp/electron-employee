@@ -17,6 +17,8 @@ $(document).ready(function() {
 
   // hours after deducting absent hours
   var totalPresentHours;
+
+  // basic salary of employee
   var basicSalary;
 
   // provident fund of selected employee
@@ -234,4 +236,32 @@ $(document).ready(function() {
       eachHourSalary
     );
   };
+
+  // when generate salary button clicked
+  var generateButton = document.querySelector("#form");
+  generateButton.addEventListener("submit", function(event) {
+    console.log("submit button clicked");
+    event.preventDefault();
+    // insert into employee history table
+    $query =
+      "INSERT INTO employee_history (e_id,year,month,working_hours,ot_amount,advance_amount,total_amount) VALUES (?,?,?,?,?,?,?)";
+    connection.query(
+      $query,
+      [
+        selectedUserId,
+        selectedYear,
+        selectedMonth,
+        totalWorkingHours,
+        otAmount,
+        advanceAmount,
+        grandTotalSalary
+      ],
+      (error, rows, field) => {
+        if (error)
+          console.log("error inserting the generate salary to table ", error);
+        console.log("data inserted successfully");
+      }
+    );
+  });
+  // end
 });

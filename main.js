@@ -16,8 +16,8 @@ app.on("ready", () => {
   const screen = electron.screen;
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   loginW = new BrowserWindow({
-    width: width,
-    height: height,
+    width: width * 0.7,
+    height: height * 0.7,
     show: false,
     webPreferences: {
       nodeIntegration: true
