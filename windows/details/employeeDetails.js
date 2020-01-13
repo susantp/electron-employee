@@ -1,6 +1,7 @@
 const { ipcRenderer } = require("electron");
 const connection = require("./../../service/db-connection");
 const app = require("electron").remote.app;
+
 ipcRenderer.on("employee-id", (event, id) => {
   console.log("id from employee details", id);
   let $query = `SELECT * FROM employee_profile WHERE id=?`;

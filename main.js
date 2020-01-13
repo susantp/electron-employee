@@ -2,19 +2,22 @@ const electron = require("electron");
 const ipcMain = electron.ipcMain;
 const BrowserWindow = electron.BrowserWindow;
 const app = electron.app;
-const os = require("os");
 const dialog = electron.dialog;
+
 let loginW = null;
 let listW = null;
 let detailW = null;
 let addW = null;
+let editW = null;
 let generateSalaryW = null;
 
 app.on("ready", () => {
   // Create the login window.
+  const screen = electron.screen;
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   loginW = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: width,
+    height: height,
     show: false,
     webPreferences: {
       nodeIntegration: true
@@ -22,7 +25,14 @@ app.on("ready", () => {
   });
 
   // and load the index.html of the app.
-  loginW.loadFile("./windows/login/index.html");
+  loginW
+    .loadFile("./windows/login/index.html")
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
   // Open the DevTools.
   loginW.webContents.openDevTools();
@@ -38,8 +48,8 @@ app.on("ready", () => {
 
   // Create the list window.
   listW = new BrowserWindow({
-    width: 900,
-    height: 600,
+    width: width,
+    height: height,
     show: false,
     webPreferences: {
       nodeIntegration: true
@@ -47,7 +57,14 @@ app.on("ready", () => {
   });
 
   // and load the index.html of the app.
-  listW.loadFile("./windows/list/list.html");
+  listW
+    .loadFile("./windows/list/list.html")
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
   // Open the DevTools.
   listW.webContents.openDevTools();
@@ -67,7 +84,14 @@ app.on("ready", () => {
       nodeIntegration: true
     }
   });
-  addW.loadFile("./windows/add/addEmployee.html");
+  addW
+    .loadFile("./windows/add/addEmployee.html")
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
   addW.webContents.openDevTools();
   addW.on("close", event => {
     event.preventDefault();
@@ -75,10 +99,34 @@ app.on("ready", () => {
   });
   // add window finished
 
+  // edit window started
+  editW = new BrowserWindow({
+    width: 800,
+    height: 600,
+    show: false,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+  editW
+    .loadFile("./windows/edit/editEmployee.html")
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  editW.webContents.openDevTools();
+  editW.on("close", event => {
+    event.preventDefault();
+    editW.hide();
+  });
+  // edit widow finished
+
   // employee details window
   detailW = new BrowserWindow({
-    width: 1200,
-    height: 600,
+    width: width,
+    height: height,
     show: false,
     webPreferences: {
       nodeIntegration: true
@@ -86,7 +134,14 @@ app.on("ready", () => {
   });
 
   // and load the employeeDetails.html of the app.
-  detailW.loadFile("./windows/details/employeeDetails.html");
+  detailW
+    .loadFile("./windows/details/employeeDetails.html")
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
   // Open the DevTools.
   detailW.webContents.openDevTools();
@@ -110,7 +165,14 @@ app.on("ready", () => {
   });
 
   // and load the generateSalary.html of the app.
-  generateSalaryW.loadFile("./windows/generate/generateSalary.html");
+  generateSalaryW
+    .loadFile("./windows/generate/generateSalary.html")
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
   // Open the DevTools.
   generateSalaryW.webContents.openDevTools();

@@ -9,10 +9,10 @@ const connection = require("./../../service/db-connection");
 $queryList = "SELECT * FROM employee_profile";
 connection.query($queryList, (err, rows, field) => {
   if (rows.length > 0) {
-    status = true;
+    let status = true;
     // ipcRenderer.send("employee-list", rows, status);
     for (let i = 0; i < rows.length; i++) {
-      let row = empTable.insertRow(1);
+      let row = empTable.insertRow(1); //table element kata define vako cha?
       let cell1 = row.insertCell(0);
       let cell2 = row.insertCell(1);
       let cell3 = row.insertCell(2);
