@@ -52,8 +52,9 @@ submitForm.addEventListener("submit", event => {
     (error, rows, field) => {
       if (error) {
         console.log(error.message);
+      } else {
+        ipcRenderer.send("employee-added", rows);
       }
-      console.log(rows);
     }
   );
 });

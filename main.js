@@ -219,10 +219,6 @@ ipcMain.on("employee-list", (event, rows, status) => {
   event.sender.send("list-received", rows);
 });
 
-// ipcMain.on("form-clicked", (event, args) => {
-//   console.log("the form id ", args);
-// });
-
 ipcMain.on("open-add-employee", (even, test) => {
   addW.show();
   console.log("add employee form clicked ", test);
@@ -253,8 +249,4 @@ ipcMain.on("open-file-dialog-for-file", function(event) {
     .catch(err => {
       console.log(err);
     });
-});
-
-ipcMain.on("invalid-login", (e, a) => {
-  console.log(a);
 });
