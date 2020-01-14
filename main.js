@@ -198,7 +198,18 @@ ipcMain.on("form-submit", (event, status) => {
     loginW.hide();
     listW.show();
   } else {
-    event.sender.send("login-failed", "Login Failed");
+    const options = {
+      type: "error",
+      buttons: ["Retry", "Cancel"],
+      title: "Invalid Login!!!",
+      message: "You have put wrong username or password.",
+      detail: "Do you want to try again or Exit ?"
+    };
+    dialog.showMessageBox(loginW, options).then(resolve => {
+      if (resolve.response === 1) {
+        app.exit();
+      }
+    });
   }
 });
 
@@ -207,10 +218,6 @@ ipcMain.on("employee-list", (event, rows, status) => {
   console.log("the rows from the list.js", rows);
   event.sender.send("list-received", rows);
 });
-
-// ipcMain.on("form-clicked", (event, args) => {
-//   console.log("the form id ", args);
-// });
 
 ipcMain.on("open-add-employee", (even, test) => {
   addW.show();
