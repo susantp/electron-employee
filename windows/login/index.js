@@ -18,9 +18,6 @@ submitButton.addEventListener("submit", function(event) {
     }
 
     ipcRenderer.send("form-submit", status);
-    ipcRenderer.on("login-failed", function(event, args) {
-      console.log("susant", args);
-    });
   });
 
   username = "";

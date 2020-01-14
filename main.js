@@ -198,7 +198,18 @@ ipcMain.on("form-submit", (event, status) => {
     loginW.hide();
     listW.show();
   } else {
-    event.sender.send("login-failed", "Login Failed");
+    const options = {
+      type: "error",
+      buttons: ["Retry", "Cancel"],
+      title: "Invalid Login!!!",
+      message: "You have put wrong username or password.",
+      detail: "Do you want to try again or Exit ?"
+    };
+    dialog.showMessageBox(loginW, options).then(resolve => {
+      if (resolve.response === 1) {
+        app.exit();
+      }
+    });
   }
 });
 
@@ -242,4 +253,8 @@ ipcMain.on("open-file-dialog-for-file", function(event) {
     .catch(err => {
       console.log(err);
     });
+});
+
+ipcMain.on("invalid-login", (e, a) => {
+  console.log(a);
 });
