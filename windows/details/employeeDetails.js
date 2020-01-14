@@ -24,6 +24,7 @@ $(document).ready(function(event) {
   // var fuel allowance
   var fuelAllowance;
 
+  var test = 1;
   // get selected employee details
   ipcRenderer.on("employee-id", (event, id) => {
     // hide the table on document ready
@@ -85,11 +86,14 @@ $(document).ready(function(event) {
     selectedElement.addEventListener("change", function(event) {
       event.preventDefault();
       // reset table called
+
       reset_table();
+
       selectedYear =
         selectedElement.options[selectedElement.selectedIndex].value;
       console.log("selected value is " + selectedYear);
       employeeDetails();
+      test = 2;
     });
 
     // employee details function
@@ -196,8 +200,9 @@ $(document).ready(function(event) {
 
     $("#salaryTable").show();
     var salaryTable = document.getElementById("salaryTable");
+
     // create row
-    let row = salaryTable.insertRow(1);
+    let row = salaryTable.insertRow();
 
     // create cell
     let cell1 = row.insertCell(0);
@@ -218,15 +223,15 @@ $(document).ready(function(event) {
     cell6.innerHTML = foodAllowance;
     cell7.innerHTML = fuelAllowance;
     cell8.innerHTML = rows.total_amount;
+
+    td.appendChild(cell1);
   }
 
   // reset table
   function reset_table() {
-    console.log("reset table called");
-    // $("#salaryTable tr").remove(1);
     $("#salaryTable")
-      .find('input[type="text"], select')
-      .val("");
+      .children()
+      .remove();
   }
 
   // end
