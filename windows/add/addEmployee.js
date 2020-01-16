@@ -1,4 +1,5 @@
 const { ipcRenderer, dialog } = require("electron");
+const app = require("electron").remote.app;
 const fs = require("fs");
 const connection = require("./../../service/db-connection");
 const os = require("os");
@@ -24,11 +25,15 @@ submitForm.addEventListener("submit", event => {
   let address = document.getElementById("address").value;
   fileElement = document.getElementById("fileToUpload");
   let fileName = uploadedFilePath.replace(/^.*[\\\/]/, "");
-  fs.copyFile(uploadedFilePath, __dirname + "/images/" + fileName, error => {
-    if (error) {
-      console.log(error);
+  fs.copyFile(
+    uploadedFilePath,
+    app.getAppPath() + "/windows/add/images/" + fileName,
+    error => {
+      if (error) {
+        console.log(error);
+      }
     }
-  });
+  );
 
   $query =
     "INSERT INTO employee_profile (name,image,joined_date,food_allowance,fuel_allowance,insurance,basic_salary,provident_fund,contact_number,dob,designation,email,address) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";

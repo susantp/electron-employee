@@ -53,8 +53,8 @@ $(document).ready(function(event) {
       ).innerHTML = `Salary Details of ${rows[0].name}`;
       document.getElementById("fullname").innerHTML = rows[0].name;
       document.getElementById("designation").innerHTML = rows[0].designation;
-      var date = rows[0].joined_date.toLocaleDateString("en-US", options);
-      document.getElementById("joinedDate").innerHTML = date;
+      // var date = rows[0].joined_date.toLocaleDateString("en-US", options);
+      document.getElementById("joinedDate").innerHTML = rows[0].joined_date;
       document.getElementById("email").innerHTML = rows[0].email;
       document.getElementById("address").innerHTML = rows[0].address;
       document.getElementById("contactNumber").innerHTML =
@@ -107,6 +107,7 @@ $(document).ready(function(event) {
             if (error) console.log("error getting history from db ", error);
             if (rows.length >= 1) {
               // loop through the result
+              console.log("list size is ", rows.length);
               for (var i = 0; i < rows.length; i++) {
                 console.log("inside month ", rows[i].month);
                 // 1
@@ -223,16 +224,35 @@ $(document).ready(function(event) {
     cell6.innerHTML = foodAllowance;
     cell7.innerHTML = fuelAllowance;
     cell8.innerHTML = rows.total_amount;
-
-    td.appendChild(cell1);
   }
 
   // reset table
   function reset_table() {
+    var salaryTable = document.getElementById("salaryTable");
+
+    // while (salaryTable.hasChildNodes()) {
+    //   salaryTable.removeChild(salaryTable.lastChild);
+    // }
+    // var tableRows = salaryTable.getElementsByTagName("tr");
+    // for (var i = 0; i < tableRows.length; i++) {
+    //   salaryTable.deleteRow(i);
+    // }
+
     $("#salaryTable")
       .children()
       .remove();
+    // var new_tbody = document.createElement("tbody");
+    // var old_tbody = document
+    //   .getElementById("salaryTable")
+    //   .getElementsByTagName("tbody")[0];
+    // old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
   }
+
+  // close app
+  var closeApp = document.getElementById("closeApp");
+  closeApp.addEventListener("click", () => {
+    ipcRenderer.send("close-me");
+  });
 
   // end
 });

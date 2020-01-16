@@ -10,7 +10,8 @@ submitButton.addEventListener("submit", function(event) {
   let password = document.getElementById("password").value;
   const $query = "SELECT * FROM users WHERE username=? AND password=?";
 
-  connection.query($query, [username, password], (err, rows, field) => {
+  connection.query($query, [username, password], (error, rows, field) => {
+    if (error) console.log("error connecting db");
     if (rows.length == 1) {
       status = true;
     } else {

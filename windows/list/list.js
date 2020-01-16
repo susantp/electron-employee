@@ -19,7 +19,10 @@ connection.query($queryList, (err, rows, field) => {
       let cell4 = row.insertCell(3);
       let cell5 = row.insertCell(4);
       let cell6 = row.insertCell(5);
-      // create button
+      let cell7 = row.insertCell(6);
+      let cell8 = row.insertCell(7);
+
+      // create details button
       let button = document.createElement("input");
       button.setAttribute("type", "button");
       button.setAttribute("name", "Details");
@@ -27,17 +30,33 @@ connection.query($queryList, (err, rows, field) => {
       button.setAttribute("class", "btn btn-success details-btn");
       button.setAttribute("id", rows[i].id);
 
-      cell1.innerHTML = rows[i].name;
-      cell2.innerHTML = rows[i].designation;
-      cell3.innerHTML = rows[i].email;
-      cell4.innerHTML = rows[i].contact_number;
-      cell5.innerHTML = rows[i].address;
-      cell6.appendChild(button);
+      // create edit button
+      let editButton = document.createElement("input");
+      editButton.setAttribute("type", "button");
+      editButton.setAttribute("name", "Edit");
+      editButton.setAttribute("value", "Edit");
+      editButton.setAttribute("class", "btn btn-primary edit-btn lg");
+      editButton.setAttribute("id", rows[i].id);
+
+      cell1.innerHTML = i + 1;
+      cell2.innerHTML = rows[i].name;
+      cell3.innerHTML = rows[i].designation;
+      cell4.innerHTML = rows[i].email;
+      cell5.innerHTML = rows[i].contact_number;
+      cell6.innerHTML = rows[i].address;
+      cell7.appendChild(button);
+      cell8.appendChild(editButton);
 
       button.addEventListener("click", event => {
         event.preventDefault();
         // console.log(event.target.id);
         handleDetailsButton(event.target.id);
+      });
+
+      editButton.addEventListener("click", event => {
+        event.preventDefault();
+        // console.log(event.target.id);
+        handleEditButton(event.target.id);
       });
     }
   }
@@ -48,6 +67,10 @@ connection.query($queryList, (err, rows, field) => {
 handleDetailsButton = id => {
   console.log("clicked button id is ", id);
   ipcRenderer.send("employee-details-id", id);
+};
+
+handleEditButton = id => {
+  ipcRenderer.send("employee-edit-id", id);
 };
 
 let addEmployeeBtn = document.getElementById("addEmployee");

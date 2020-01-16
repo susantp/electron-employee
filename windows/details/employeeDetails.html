@@ -28,6 +28,13 @@
       <!-- dropdown -->
 
       <h1 id="salaryDetails"></h1>
+      <input
+        type="button"
+        class="btn btn-danger"
+        value="Close"
+        style="float: right;"
+        id="closeApp"
+      />
       <div class="crupeeEmployeeDetailTop clearfix">
         <div class="employeeImg">
           <img src="placeholder.png" alt="" class="img-fluid" id="profImg" />
@@ -85,7 +92,25 @@
         </div>
 
         <!-- table -->
-        <table class="table table-bordered" id="salaryTable">
+        <table class="table table-bordered" id="fooTable">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Month</th>
+              <th scope="col">Basic</th>
+              <th scope="col">Insurance</th>
+              <th scope="col">Provident Fund(%)</th>
+              <th scope="col">Over Time</th>
+              <th scope="col">Food Allowance</th>
+              <th scope="col">Fuel Allowance</th>
+              <th scope="col">In Total (Rs.)</th>
+            </tr>
+          </thead>
+        </table>
+        <table
+          class="table table-bordered"
+          id="salaryTable"
+          style="margin-top: 0px;"
+        >
           <thead class="thead-dark">
             <tr>
               <th scope="col">Month</th>
@@ -99,16 +124,16 @@
             </tr>
           </thead>
           <tbody id="tbody">
-            <!-- <tr>
-              <th scope="row">January</th>
-              <td>2000</td>
-              <td>200</td>
-              <td>20</td>
-              <td>10</td>
-              <td>5</td>
-              <td>0</td>
-              <td>2235</td>
-            </tr> -->
+            <tr id="1">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
           </tbody>
         </table>
         <!-- end of table -->

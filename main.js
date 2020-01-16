@@ -146,10 +146,15 @@ app.on("ready", () => {
   // Open the DevTools.
   detailW.webContents.openDevTools();
 
+  detailW.on("before-quit", event => {
+    event.preventDefault();
+    addW = null;
+  });
+
   // Emitted when the window is closed.
   detailW.on("close", event => {
-    event.preventDefault();
     detailW.hide();
+    event.preventDefault();
   });
   //details window finished
 
@@ -227,6 +232,7 @@ ipcMain.on("open-add-employee", (even, test) => {
 // employee details
 ipcMain.on("employee-details-id", (event, id) => {
   console.log("the main page ", id);
+
   detailW.show();
   detailW.webContents.send("employee-id", id);
 });
@@ -249,4 +255,15 @@ ipcMain.on("open-file-dialog-for-file", function(event) {
     .catch(err => {
       console.log(err);
     });
+});
+
+ipcMain.on("employee-edit-id", (event, id) => {
+  editW.show();
+  editW.webContents.send("employee-id", id);
+});
+
+// close details window
+ipcMain.on("close-me", (event, arg) => {
+  event.preventDefault();
+  detailW.exit();
 });
