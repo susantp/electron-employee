@@ -198,6 +198,7 @@ app.on("ready", () => {
   });
 });
 
+// handle the login
 ipcMain.on("form-submit", (event, status) => {
   if (status === true) {
     loginW.hide();
@@ -229,7 +230,7 @@ ipcMain.on("open-add-employee", (even, test) => {
   console.log("add employee form clicked ", test);
 });
 
-// employee details
+// get the id from employee list of specific employee for their  details
 ipcMain.on("employee-details-id", (event, id) => {
   console.log("the main page ", id);
 
@@ -242,6 +243,7 @@ ipcMain.on("open-generate-salary", (event, args) => {
   generateSalaryW.show();
 });
 
+// handle the image uplolad
 ipcMain.on("open-file-dialog-for-file", function(event) {
   dialog
     .showOpenDialog(addW, {
@@ -257,13 +259,8 @@ ipcMain.on("open-file-dialog-for-file", function(event) {
     });
 });
 
+// get the id from employee list to be edited
 ipcMain.on("employee-edit-id", (event, id) => {
   editW.show();
   editW.webContents.send("employee-id", id);
-});
-
-// close details window
-ipcMain.on("close-me", (event, arg) => {
-  event.preventDefault();
-  detailW.exit();
 });

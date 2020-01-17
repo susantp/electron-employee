@@ -248,11 +248,5 @@ $(document).ready(function(event) {
     // old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
   }
 
-  // close app
-  var closeApp = document.getElementById("closeApp");
-  closeApp.addEventListener("click", () => {
-    ipcRenderer.send("close-me");
-  });
-
   // end
 });

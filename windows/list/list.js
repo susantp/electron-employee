@@ -113,3 +113,9 @@ generateSalary.addEventListener("click", e => {
   let test = true;
   ipcRenderer.send("open-generate-salary", test);
 });
+
+handleMouseOver = () => {
+  document.getElementById("addEmployee").innerHTML = "Add employee profile";
+};
+
+// document object model is the w3 school consortium standard
