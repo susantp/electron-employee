@@ -12,18 +12,19 @@ connection.query($queryList, (err, rows, field) => {
     let status = true;
     // ipcRenderer.send("employee-list", rows, status);
     for (let i = 0; i < rows.length; i++) {
-      let row = empTable.insertRow(1); //table element kata define vako cha?
-      let cell1 = row.insertCell(0);
-      let cell2 = row.insertCell(1);
-      let cell3 = row.insertCell(2);
-      let cell4 = row.insertCell(3);
-      let cell5 = row.insertCell(4);
-      let cell6 = row.insertCell(5);
-      let cell7 = row.insertCell(6);
-      let cell8 = row.insertCell(7);
+      var row = empTable.insertRow(1); //table element kata define vako cha?
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      var cell5 = row.insertCell(4);
+      var cell6 = row.insertCell(5);
+      var cell7 = row.insertCell(6);
+      var cell8 = row.insertCell(7);
+      var cell9 = row.insertCell(8);
 
       // create details button
-      let button = document.createElement("input");
+      var button = document.createElement("input");
       button.setAttribute("type", "button");
       button.setAttribute("name", "Details");
       button.setAttribute("value", "Details");
@@ -31,12 +32,20 @@ connection.query($queryList, (err, rows, field) => {
       button.setAttribute("id", rows[i].id);
 
       // create edit button
-      let editButton = document.createElement("input");
+      var editButton = document.createElement("input");
       editButton.setAttribute("type", "button");
       editButton.setAttribute("name", "Edit");
       editButton.setAttribute("value", "Edit");
       editButton.setAttribute("class", "btn btn-primary edit-btn lg");
       editButton.setAttribute("id", rows[i].id);
+
+      // create delete button
+      var deleteButton = document.createElement("input");
+      deleteButton.setAttribute("type", "button");
+      deleteButton.setAttribute("name", "Delete");
+      deleteButton.setAttribute("value", "Delete");
+      deleteButton.setAttribute("class", "btn btn-danger edit-btn lg");
+      deleteButton.setAttribute("id", rows[i].id);
 
       cell1.innerHTML = i + 1;
       cell2.innerHTML = rows[i].name;
@@ -46,6 +55,7 @@ connection.query($queryList, (err, rows, field) => {
       cell6.innerHTML = rows[i].address;
       cell7.appendChild(button);
       cell8.appendChild(editButton);
+      cell9.appendChild(deleteButton);
 
       button.addEventListener("click", event => {
         event.preventDefault();
@@ -57,6 +67,13 @@ connection.query($queryList, (err, rows, field) => {
         event.preventDefault();
         // console.log(event.target.id);
         handleEditButton(event.target.id);
+      });
+
+      deleteButton.addEventListener("click", event => {
+        event.preventDefault();
+        alert("Are you sure want to delete?");
+        // console.log(event.target.id);
+        handleDeleteButton(event.target.id);
       });
     }
   }
@@ -71,6 +88,16 @@ handleDetailsButton = id => {
 
 handleEditButton = id => {
   ipcRenderer.send("employee-edit-id", id);
+};
+
+handleDeleteButton = id => {
+  $query = "DELETE  FROM employee_profile WHERE id=?";
+  connection.query($query, [id], (error, rows, field) => {
+    if (error) {
+      console.log("error connecting db");
+    }
+    console.log("employee deleted");
+  });
 };
 
 let addEmployeeBtn = document.getElementById("addEmployee");
