@@ -28,14 +28,14 @@ app.on("ready", () => {
   loginW
     .loadFile("./windows/login/index.html")
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
     });
 
   // Open the DevTools.
-  loginW.webContents.openDevTools();
+  // loginW.webContents.openDevTools();
 
   // Emitted when the window is closed.
   loginW.on("closed", () => {
@@ -48,8 +48,8 @@ app.on("ready", () => {
 
   // Create the list window.
   listW = new BrowserWindow({
-    width: width,
-    height: height,
+    width: width * 0.7,
+    height: height * 0.7,
     show: false,
     webPreferences: {
       nodeIntegration: true
@@ -60,14 +60,14 @@ app.on("ready", () => {
   listW
     .loadFile("./windows/list/list.html")
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
     });
 
   // Open the DevTools.
-  listW.webContents.openDevTools();
+  // listW.webContents.openDevTools();
 
   // Emitted when the window is closed.
   listW.on("closed", () => {
@@ -87,12 +87,12 @@ app.on("ready", () => {
   addW
     .loadFile("./windows/add/addEmployee.html")
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
     });
-  addW.webContents.openDevTools();
+  // addW.webContents.openDevTools();
   addW.on("close", event => {
     event.preventDefault();
     addW.hide();
@@ -101,8 +101,8 @@ app.on("ready", () => {
 
   // edit window started
   editW = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: width * 0.7,
+    height: height * 0.7,
     show: false,
     webPreferences: {
       nodeIntegration: true
@@ -111,12 +111,12 @@ app.on("ready", () => {
   editW
     .loadFile("./windows/edit/editEmployee.html")
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
     });
-  editW.webContents.openDevTools();
+  // editW.webContents.openDevTools();
   editW.on("close", event => {
     event.preventDefault();
     editW.hide();
@@ -125,8 +125,8 @@ app.on("ready", () => {
 
   // employee details window
   detailW = new BrowserWindow({
-    width: width,
-    height: height,
+    width: width * 0.7,
+    height: height * 0.7,
     show: false,
     webPreferences: {
       nodeIntegration: true
@@ -137,14 +137,14 @@ app.on("ready", () => {
   detailW
     .loadFile("./windows/details/employeeDetails.html")
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
     });
 
   // Open the DevTools.
-  detailW.webContents.openDevTools();
+  // detailW.webContents.openDevTools();
 
   detailW.on("before-quit", event => {
     event.preventDefault();
@@ -173,14 +173,14 @@ app.on("ready", () => {
   generateSalaryW
     .loadFile("./windows/generate/generateSalary.html")
     .then(result => {
-      console.log(result);
+      // console.log(result);
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
     });
 
   // Open the DevTools.
-  generateSalaryW.webContents.openDevTools();
+  // generateSalaryW.webContents.openDevTools();
 
   // Emitted when the window is closed.
   generateSalaryW.on("close", event => {
@@ -221,15 +221,29 @@ ipcMain.on("form-submit", (event, status) => {
 
 // getting employee from the db
 ipcMain.on("employee-list", (event, rows, status) => {
-  console.log("the rows from the list.js", rows);
+  // console.log("the rows from the list.js", rows);
   event.sender.send("list-received", rows);
 });
 
 ipcMain.on("open-add-employee", (even, test) => {
   addW.show();
-  console.log("add employee form clicked ", test);
+  // console.log("add employee form clicked ", test);
 });
-
+ipcMain.on("employee-added", (e, a) => {
+  const options = {
+    type: "info",
+    buttons: ["Ok"],
+    title: "Record Added.",
+    message: "Successfully Added!!!",
+    detail: "You have successfully added " + a.affectedRows + " record."
+  };
+  dialog.showMessageBox(addW, options).then(resolve => {
+    if (resolve.response === 0) {
+      addW.hide();
+      listW.webContents.send("rowAdded");
+    }
+  });
+});
 // get the id from employee list of specific employee for their  details
 ipcMain.on("employee-details-id", (event, id) => {
   detailW.show();
@@ -249,11 +263,11 @@ ipcMain.on("open-file-dialog-for-file", function(event) {
       filters: [{ name: "Images", extensions: ["jpg", "jpeg", "png", "gif"] }]
     })
     .then(result => {
-      console.log(result.canceled);
+      // console.log(result.canceled);
       event.sender.send("selected-file", result.filePaths[0]);
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
     });
 });
 
@@ -273,6 +287,21 @@ ipcMain.on("employee-edited", (event, results) => {
   dialog.showMessageBox(loginW, options).then(resolve => {
     if (resolve.response === 0) {
       editW.hide();
+    }
+  });
+});
+
+ipcMain.on("handleDelete", (event, args) => {
+  const options = {
+    type: "warning",
+    buttons: ["Yes", "No"],
+    title: "Delete Record",
+    message: "You are going to delete record!!!",
+    detail: "Are you Sure?"
+  };
+  dialog.showMessageBox(listW, options).then(resolve => {
+    if (resolve.response === 0) {
+      event.sender.send("deleteApproved");
     }
   });
 });

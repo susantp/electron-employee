@@ -1,17 +1,21 @@
 {
   "name": "crupee-salary-meter",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "this is salary meter",
   "main": "main.js",
   "private": true,
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package-mac": "electron-packager . Crupee-Salary-Info --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . Crupee-Salary-Info --overwrite --asar --platform=win32 --arch=x64 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Electron Tutorial App\"",
+    "package-linux": "electron-packager . Crupee-Salary-Info --overwrite --asar --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds"
   },
-  "author": "Sudip Adhikari",
+  "author": "Susant, Sudip & Rajesh",
   "license": "ISC",
   "devDependencies": {
-    "npm-check-updates": "^4.0.1",
     "electron": "^7.1.7",
+    "electron-packager": "^14.2.0",
+    "npm-check-updates": "^4.0.1",
     "prettier": "^1.19.1"
   },
   "dependencies": {
