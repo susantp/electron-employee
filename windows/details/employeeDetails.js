@@ -90,7 +90,6 @@ $(document).ready(function(event) {
         selectedElement.options[selectedElement.selectedIndex].value;
       console.log("selected value is " + selectedYear);
       employeeDetails();
-      test = 2;
     };
 
     // employee details function
