@@ -39,7 +39,7 @@ app.on("ready", () => {
 
   // Emitted when the window is closed.
   loginW.on("closed", () => {
-    loginW = null;
+    app.exit();
   });
   loginW.on("ready-to-show", () => {
     loginW.show();
