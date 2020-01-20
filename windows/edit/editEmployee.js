@@ -61,15 +61,17 @@ $(document).ready(function() {
     }
 
     // copy file
-    fs.copyFile(
-      uploadedFilePath,
-      app.getAppPath() + "/windows/add/images/" + fileName,
-      error => {
-        if (error) {
-          console.log(error);
+    if (uploadedFilePath) {
+      fs.copyFile(
+        uploadedFilePath,
+        app.getAppPath() + "/windows/add/images/" + fileName,
+        error => {
+          if (error) {
+            console.log(error);
+          }
         }
-      }
-    );
+      );
+    }
 
     // query
     $query =
@@ -93,11 +95,11 @@ $(document).ready(function() {
         employee_id
       ],
 
-      (error, rows, field) => {
+      (error, results, field) => {
         if (error) {
           console.log(error.message);
         } else {
-          ipcRenderer.send("employee-added", rows);
+          ipcRenderer.send("employee-edited", results);
         }
       }
     );

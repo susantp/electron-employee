@@ -262,3 +262,17 @@ ipcMain.on("employee-edit-id", (event, id) => {
   editW.show();
   editW.webContents.send("employee-id", id);
 });
+
+ipcMain.on("employee-edited", (event, results) => {
+  const options = {
+    type: "info",
+    buttons: ["Ok"],
+    title: "Edit Successfully",
+    detail: results.affectedRows + " record updated"
+  };
+  dialog.showMessageBox(loginW, options).then(resolve => {
+    if (resolve.response === 0) {
+      editW.hide();
+    }
+  });
+});
