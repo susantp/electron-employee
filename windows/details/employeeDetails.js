@@ -118,57 +118,66 @@ $(document).ready(function(event) {
                 else if (rows[i].month == "2") {
                   month = "February";
                   insertRow(rows[i], month);
-                  console.log("second month is ", rows[i].month);
                 }
 
                 // 3
                 else if (rows[i].month == "3") {
-                  console.log("second month is ", rows[i].month);
+                  month = "March";
+                  insertRow(rows[i], month);
                 }
 
                 // 4
                 else if (rows[i].month == "4") {
-                  console.log("second month is ", rows[i].month);
+                  month = "April";
+                  insertRow(rows[i], month);
                 }
 
                 // 5
                 else if (rows[i].month == "5") {
-                  console.log("second month is ", rows[i].month);
+                  month = "May";
+                  insertRow(rows[i], month);
                 }
 
                 // 6
                 else if (rows[i].month == "6") {
-                  console.log("second month is ", rows[i].month);
+                  month = "June";
+                  insertRow(rows[i], month);
                 }
 
                 // 7
                 else if (rows[i].month == "7") {
-                  console.log("second month is ", rows[i].month);
+                  month = "July";
+                  insertRow(rows[i], month);
                 }
 
                 // 8
                 else if (rows[i].month == "8") {
-                  console.log("second month is ", rows[i].month);
+                  month = "August";
+                  insertRow(rows[i], month);
                 }
 
                 // 9
                 else if (rows[i].month == "9") {
-                  console.log("second month is ", rows[i].month);
+                  month = "September";
+                  insertRow(rows[i], month);
                 }
 
                 // 10
                 else if (rows[i].month == "10") {
-                  console.log("second month is ", rows[i].month);
+                  month = "October";
+                  insertRow(rows[i], month);
                 }
 
                 // 11
                 else if (rows[i].month == "11") {
-                  console.log("second month is ", rows[i].month);
+                  month = "November";
+                  insertRow(rows[i], month);
                 }
 
                 // 12
                 else if (rows[i].month == "12") {
-                  console.log("second month is ", rows[i].month);
+                  month = "December";
+                  insertRow(rows[i], month);
                 }
 
                 // else
