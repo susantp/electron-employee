@@ -71,7 +71,6 @@ connection.query($queryList, (err, rows, field) => {
 
       deleteButton.addEventListener("click", event => {
         event.preventDefault();
-        alert("Are you sure want to delete?");
         // console.log(event.target.id);
         handleDeleteButton(event.target.id);
       });
@@ -82,7 +81,7 @@ connection.query($queryList, (err, rows, field) => {
 // ipcRenderer.on("list-received", (event, rows) => {});
 
 handleDetailsButton = id => {
-  console.log("clicked button id is ", id);
+  // console.log("clicked button id is ", id);
   ipcRenderer.send("employee-details-id", id);
 };
 
@@ -91,12 +90,15 @@ handleEditButton = id => {
 };
 
 handleDeleteButton = id => {
-  $query = "DELETE  FROM employee_profile WHERE id=?";
-  connection.query($query, [id], (error, rows, field) => {
-    if (error) {
-      console.log("error connecting db");
-    }
-    console.log("employee deleted");
+  ipcRenderer.send("handleDelete", id);
+  ipcRenderer.on("deleteApproved", () => {
+    $query = "DELETE  FROM employee_profile WHERE id=?";
+    connection.query($query, [id], (error, rows, field) => {
+      if (error) {
+        console.log("error connecting db");
+      }
+      location.reload();
+    });
   });
 };
 
@@ -117,5 +119,7 @@ generateSalary.addEventListener("click", e => {
 handleMouseOver = () => {
   document.getElementById("addEmployee").innerHTML = "Add employee profile";
 };
-
+ipcRenderer.on("listAdded", () => {
+  location.reload();
+});
 // document object model is the w3 school consortium standard
