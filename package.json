@@ -1,13 +1,13 @@
 {
   "name": "crupee-salary-meter",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "this is salary meter",
   "main": "main.js",
   "private": true,
   "scripts": {
     "start": "electron ."
   },
-  "author": "Sudip Adhikari",
+  "author": "Susant, Sudip & Rajesh",
   "license": "ISC",
   "devDependencies": {
     "npm-check-updates": "^4.0.1",
