@@ -28,13 +28,11 @@ $(document).ready(function(event) {
   // get selected employee details
   ipcRenderer.on("employee-id", (event, id) => {
     // hide the table on document ready
-    $("#salaryTable").hide();
+    // $("#salaryTable").hide();
 
     if (id) {
       selectedUserId = id;
     }
-
-    console.log("id from employee details", selectedUserId);
 
     let $query = `SELECT * FROM employee_profile WHERE id=?`;
 
@@ -83,18 +81,17 @@ $(document).ready(function(event) {
     // on selection of year
     var selectedElement = document.getElementById("select");
 
-    selectedElement.addEventListener("change", function(event) {
-      event.preventDefault();
+    selectedElement.onchange = function selectChanged() {
       // reset table called
 
       reset_table();
-
+      $("#salaryTable").hide();
       selectedYear =
         selectedElement.options[selectedElement.selectedIndex].value;
       console.log("selected value is " + selectedYear);
       employeeDetails();
       test = 2;
-    });
+    };
 
     // employee details function
     function employeeDetails() {
@@ -230,22 +227,9 @@ $(document).ready(function(event) {
   function reset_table() {
     var salaryTable = document.getElementById("salaryTable");
 
-    // while (salaryTable.hasChildNodes()) {
-    //   salaryTable.removeChild(salaryTable.lastChild);
-    // }
-    // var tableRows = salaryTable.getElementsByTagName("tr");
-    // for (var i = 0; i < tableRows.length; i++) {
-    //   salaryTable.deleteRow(i);
-    // }
-
     $("#salaryTable tr")
       .slice(1)
       .remove();
-    // var new_tbody = document.createElement("tbody");
-    // var old_tbody = document
-    //   .getElementById("salaryTable")
-    //   .getElementsByTagName("tbody")[0];
-    // old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
   }
 
   // end
