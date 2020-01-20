@@ -28,7 +28,7 @@ $(document).ready(function(event) {
   // get selected employee details
   ipcRenderer.on("employee-id", (event, id) => {
     // hide the table on document ready
-    // $("#salaryTable").hide();
+    $("#salaryTable").hide();
 
     if (id) {
       selectedUserId = id;
