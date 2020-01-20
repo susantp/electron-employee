@@ -232,8 +232,6 @@ ipcMain.on("open-add-employee", (even, test) => {
 
 // get the id from employee list of specific employee for their  details
 ipcMain.on("employee-details-id", (event, id) => {
-  console.log("the main page ", id);
-
   detailW.show();
   detailW.webContents.send("employee-id", id);
 });
