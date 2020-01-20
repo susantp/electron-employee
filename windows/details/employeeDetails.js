@@ -238,8 +238,8 @@ $(document).ready(function(event) {
     //   salaryTable.deleteRow(i);
     // }
 
-    $("#salaryTable")
-      .children()
+    $("#salaryTable tr")
+      .slice(1)
       .remove();
     // var new_tbody = document.createElement("tbody");
     // var old_tbody = document
