@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "electron .",
-    "package-mac": "electron-packager . Crupee-Salary-Info --overwrite --platform=darwin --arch=x64 --icon=build/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-mac": "electron-packager . Crupee-Salary-Info --overwrite --asar --platform=darwin --arch=x64 --icon=build/icons/mac/icon.icns --prune=true --out=release-builds",
     "package-win": "electron-packager . Crupee-Salary-Info --overwrite --asar --platform=win32 --arch=x64 --icon=build/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=Crupee --version-string.FileDescription=Crupee --version-string.ProductName=\"Crupee Salary Info\"",
     "package-linux": "electron-packager . Crupee-Salary-Info --overwrite --asar --platform=linux --arch=x64 --icon=build/icons/png/1024x1024.png --prune=true --out=release-builds"
   },
@@ -21,6 +21,7 @@
   "dependencies": {
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
+    "mkdirp": "^0.5.1",
     "mysql": "^2.17.1",
     "popper.js": "^1.16.0"
   }

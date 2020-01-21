@@ -1,6 +1,7 @@
 const { ipcRenderer } = require("electron");
 const connection = require("./../../service/db-connection");
 const app = require("electron").remote.app;
+const os = require("os");
 
 $(document).ready(function(event) {
   // selected user id
@@ -74,7 +75,7 @@ $(document).ready(function(event) {
         document.getElementById("profImg").src = __dirname + "/placeholder.png";
       } else {
         document.getElementById("profImg").src =
-          app.getAppPath() + "/windows/add/images/" + rows[0].image;
+          os.homedir() + "/crupee-salary-info/images/" + rows[0].image;
       }
     });
 
