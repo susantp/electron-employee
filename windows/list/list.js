@@ -119,7 +119,6 @@ generateSalary.addEventListener("click", e => {
 handleMouseOver = () => {
   document.getElementById("addEmployee").innerHTML = "Add employee profile";
 };
-ipcRenderer.on("listAdded", () => {
+ipcRenderer.on("rowAdded", () => {
   location.reload();
 });
-// document object model is the w3 school consortium standard

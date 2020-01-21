@@ -2,6 +2,8 @@ const { ipcRenderer, dialog } = require("electron");
 const connection = require("./../../service/db-connection");
 const app = require("electron").remote.app;
 const fs = require("fs");
+const os = require("os");
+const mkdirp = require("mkdirp");
 
 // when document is ready
 $(document).ready(function() {
@@ -11,7 +13,6 @@ $(document).ready(function() {
   // getting id from main on edit button click
   ipcRenderer.on("employee-id", (event, id) => {
     employee_id = id;
-    console.log("id to be edited is ", employee_id);
 
     $query = " SELECT * FROM employee_profile WHERE id=?";
     connection.query($query, [employee_id], (error, rows, field) => {
@@ -28,16 +29,10 @@ $(document).ready(function() {
       document.getElementById("designation").value = rows[0].designation;
       document.getElementById("email").value = rows[0].email;
       document.getElementById("address").value = rows[0].address;
-      test1();
     });
   });
 
   // edit button is clicked
-
-  // test function
-  test1 = () => {
-    console.log("employee id outside the function is ", employee_id);
-  };
 
   const submitForm = document.querySelector("#form");
 
@@ -58,19 +53,22 @@ $(document).ready(function() {
     fileElement = document.getElementById("fileToUpload");
     if (uploadedFilePath) {
       var fileName = uploadedFilePath.replace(/^.*[\\\/]/, "");
-    }
 
-    // copy file
-    if (uploadedFilePath) {
-      fs.copyFile(
-        uploadedFilePath,
-        app.getAppPath() + "/windows/add/images/" + fileName,
-        error => {
-          if (error) {
-            console.log(error);
-          }
+      mkdirp(os.homedir() + "/crupee-salary-info/images/", function(err) {
+        if (err) {
+          console.log("error: " + err);
+        } else {
+          fs.copyFile(
+            uploadedFilePath,
+            os.homedir() + "\\crupee-salary-info\\images\\" + fileName,
+            error => {
+              if (error) {
+                console.log("File Copy Error: " + error);
+              }
+            }
+          );
         }
-      );
+      });
     }
 
     // query
@@ -99,7 +97,7 @@ $(document).ready(function() {
         if (error) {
           console.log(error.message);
         } else {
-          ipcRenderer.send("employee-edited", results);
+          // ipcRenderer.send("employee-edited", results);
         }
       }
     );
@@ -109,7 +107,7 @@ $(document).ready(function() {
     event.preventDefault();
     ipcRenderer.send("open-file-dialog-for-file");
     ipcRenderer.on("selected-file", (e, filePath) => {
-      console.log(filePath);
+      console.log("uploaded file path: " + filePath);
 
       uploadedFilePath = filePath;
     });

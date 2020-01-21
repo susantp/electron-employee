@@ -3,6 +3,7 @@ const app = require("electron").remote.app;
 const fs = require("fs");
 const connection = require("./../../service/db-connection");
 const os = require("os");
+const mkdirp = require("mkdirp");
 
 // when submit button clicked
 var empDetailsBtn = document.getElementById("empDetailsBtn");
@@ -26,18 +27,24 @@ submitForm.addEventListener("submit", event => {
   var address = document.getElementById("address").value;
   fileElement = document.getElementById("fileToUpload");
   if (uploadedFilePath) {
-    fileName = uploadedFilePath.replace(/^.*[\\\/]/, "");
-  }
+    var fileName = uploadedFilePath.replace(/^.*[\\\/]/, "");
 
-  fs.copyFile(
-    uploadedFilePath,
-    app.getAppPath() + "/windows/add/images/" + fileName,
-    error => {
-      if (error) {
-        console.log(error);
+    mkdirp(os.homedir() + "/crupee-salary-info/images/", function(err) {
+      if (err) {
+        console.log("error: " + err);
+      } else {
+        fs.copyFile(
+          uploadedFilePath,
+          os.homedir() + "\\crupee-salary-info\\images\\" + fileName,
+          error => {
+            if (error) {
+              console.log("File Copy Error: " + error);
+            }
+          }
+        );
       }
-    }
-  );
+    });
+  }
 
   $query =
     "INSERT INTO employee_profile (name,image,joined_date,food_allowance,fuel_allowance,insurance,basic_salary,provident_fund,contact_number,dob,designation,email,address) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -63,6 +70,7 @@ submitForm.addEventListener("submit", event => {
         console.log(error.message);
       } else {
         ipcRenderer.send("employee-added", rows);
+        // console.log("added");
       }
     }
   );
