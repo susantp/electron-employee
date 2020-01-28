@@ -252,6 +252,7 @@ ipcMain.on("employee-details-id", (event, id) => {
 
 // open generate salary window
 ipcMain.on("open-generate-salary", (event, args) => {
+  generateSalaryW.webContents.send("came-from-list");
   generateSalaryW.show();
 });
 

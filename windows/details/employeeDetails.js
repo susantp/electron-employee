@@ -13,6 +13,9 @@ $(document).ready(function(event) {
   // basic salary
   var basicSalary;
 
+  //working hours
+  var workingHours;
+
   // insurance
   var insurance;
 
@@ -26,6 +29,7 @@ $(document).ready(function(event) {
   var fuelAllowance;
 
   var test = 1;
+  var bInfo = null;
   // get selected employee details
   ipcRenderer.on("employee-id", (event, id) => {
     // hide the table on document ready
@@ -39,13 +43,14 @@ $(document).ready(function(event) {
 
     connection.query($query, [selectedUserId], (error, rows, field) => {
       if (error) console.log("error occur getting data ", error);
+      bInfo = rows;
       const options = {
         weekday: "short",
         year: "numeric",
         month: "short",
         day: "2-digit"
       };
-      ipcRenderer.send("selected-employee-details", rows);
+      // ipcRenderer.send("selected-employee-details", rows);
 
       document.getElementById(
         "salaryDetails"
@@ -89,7 +94,7 @@ $(document).ready(function(event) {
       $("#salaryTable").hide();
       selectedYear =
         selectedElement.options[selectedElement.selectedIndex].value;
-      console.log("selected value is " + selectedYear);
+      // console.log("selected value is " + selectedYear);
       employeeDetails();
     };
 
@@ -104,12 +109,12 @@ $(document).ready(function(event) {
             if (error) console.log("error getting history from db ", error);
             if (rows.length >= 1) {
               // loop through the result
-              console.log("list size is ", rows.length);
+              // console.log("list size is ", rows.length);
               for (var i = 0; i < rows.length; i++) {
-                console.log("inside month ", rows[i].month);
+                // console.log("inside month ", rows[i].month);
                 // 1
                 if (rows[i].month == "1") {
-                  console.log("first month is ", rows[i].month);
+                  // console.log("first month is ", rows[i].month);
                   month = "January";
                   insertRow(rows[i], month);
                 }
@@ -203,9 +208,8 @@ $(document).ready(function(event) {
   // insert table body
 
   function insertRow(rows, month) {
-    console.log("function called");
-
     $("#salaryTable").show();
+
     var salaryTable = document.getElementById("salaryTable");
 
     // create row
@@ -220,16 +224,27 @@ $(document).ready(function(event) {
     let cell6 = row.insertCell(5);
     let cell7 = row.insertCell(6);
     let cell8 = row.insertCell(7);
+    let cell9 = row.insertCell(8);
+    let cell10 = row.insertCell(9);
 
     // add html to call
     cell1.innerHTML = month;
     cell2.innerHTML = basicSalary;
-    cell3.innerHTML = insurance;
-    cell4.innerHTML = providentFund;
-    cell5.innerHTML = rows.ot_amount;
-    cell6.innerHTML = foodAllowance;
-    cell7.innerHTML = fuelAllowance;
-    cell8.innerHTML = rows.total_amount;
+    cell3.innerHTML = rows.working_hours;
+    cell4.innerHTML = insurance;
+    cell5.innerHTML = providentFund;
+    cell6.innerHTML = rows.ot_amount;
+    cell7.innerHTML = foodAllowance;
+    cell8.innerHTML = fuelAllowance;
+    cell9.innerHTML = rows.total_amount;
+    cell10.innerHTML =
+      "<button class='btn btn-info' id='gSlip'>Generate Slip</button>";
+
+    let gSlip = document.getElementById("gSlip");
+    gSlip.addEventListener("click", () => {
+      // print();
+      console.log("Info: ", bInfo[0]); //working
+    });
   }
 
   // reset table

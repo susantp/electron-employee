@@ -1,6 +1,9 @@
-const { ipcRenderer, dialog } = require("electron");
+const { ipcRenderer, remote } = require("electron");
+const { dialog } = require("electron").remote;
 const connection = require("./../../service/db-connection");
-
+ipcRenderer.on("came-from-list", () => {
+  location.reload();
+});
 $(document).ready(function() {
   var selectedElement = document.getElementById("selectEmployee");
   // selected employee
@@ -215,7 +218,7 @@ $(document).ready(function() {
     }
   });
 
-  // advamce amount on key up
+  // advance amount on key up
   $("#advanceAmount").keyup(function() {
     advanceAmount = $("#advanceAmount").val();
     if (salaryAddingFuel) {
@@ -240,7 +243,6 @@ $(document).ready(function() {
   // when generate salary button clicked
   var generateButton = document.querySelector("#form");
   generateButton.addEventListener("submit", function(event) {
-    console.log("submit button clicked");
     event.preventDefault();
     // insert into employee history table
     $query =
@@ -257,9 +259,25 @@ $(document).ready(function() {
         grandTotalSalary
       ],
       (error, rows, field) => {
-        if (error)
+        let gSalaryW;
+        if (error) {
           console.log("error inserting the generate salary to table ", error);
-        console.log("data inserted successfully");
+        } else {
+          gSalaryW = remote.getCurrentWindow();
+          const options = {
+            type: "info",
+            buttons: ["Ok"],
+            title: "Record Added.",
+            message: "Successfully Added!!!",
+            detail:
+              "You have successfully added " + rows.affectedRows + " record."
+          };
+          dialog.showMessageBox(gSalaryW, options).then(resolve => {
+            if (resolve.response === 0) {
+              gSalaryW.hide();
+            }
+          });
+        }
       }
     );
   });

@@ -112,8 +112,7 @@ addEmployeeBtn.addEventListener("click", e => {
 let generateSalary = document.getElementById("generateSalary");
 generateSalary.addEventListener("click", e => {
   e.preventDefault();
-  let test = true;
-  ipcRenderer.send("open-generate-salary", test);
+  ipcRenderer.send("open-generate-salary");
 });
 
 handleMouseOver = () => {
