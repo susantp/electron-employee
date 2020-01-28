@@ -97,7 +97,7 @@ $(document).ready(function() {
         if (error) {
           console.log(error.message);
         } else {
-          // ipcRenderer.send("employee-edited", results);
+          ipcRenderer.send("employee-edited", results);
         }
       }
     );
@@ -108,7 +108,6 @@ $(document).ready(function() {
     ipcRenderer.send("open-file-dialog-for-file");
     ipcRenderer.on("selected-file", (e, filePath) => {
       console.log("uploaded file path: " + filePath);
-
       uploadedFilePath = filePath;
     });
   });
