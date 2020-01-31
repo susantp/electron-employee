@@ -10,6 +10,7 @@ let detailW = null;
 let addW = null;
 let editW = null;
 let generateSalaryW = null;
+let reportW = null;
 
 app.on("ready", () => {
   // Create the login window.
@@ -188,6 +189,37 @@ app.on("ready", () => {
     generateSalaryW.hide();
   });
 
+  reportW = new BrowserWindow({
+    width: width * 0.7,
+    height: height * 0.7,
+    show: false,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+
+  // and load the generateSalary.html of the app.
+  reportW
+    .loadFile("./windows/report/report.html")
+    .then(result => {
+      // console.log(result);
+    })
+    .catch(err => {
+      // console.log(err);
+    });
+
+  // Open the DevTools.
+  reportW.webContents.openDevTools();
+  // generateSalaryW.webContents.openDevTools();
+
+  // Emitted when the window is closed.
+  reportW.on("close", event => {
+    event.preventDefault();
+    reportW.hide();
+  });
+  ipcMain.on("generateCall", () => {
+    reportW.show();
+  });
   // generate salary window finished
 
   // Quit when all windows are closed.
@@ -305,4 +337,35 @@ ipcMain.on("handleDelete", (event, args) => {
       event.sender.send("deleteApproved");
     }
   });
+});
+
+ipcMain.on("report-data-collected", (event, args) => {
+  let providentFundAmt =
+    parseFloat(args.bInfo.basic_salary) *
+    (parseFloat(args.bInfo.provident_fund) / 100);
+  let totalAddition =
+    parseFloat(args.bInfo.basic_salary) +
+    parseFloat(args.bInfo.food_allowance) +
+    parseFloat(args.hInfo.ot_amount) +
+    parseFloat(args.bInfo.fuel_allowance);
+  let totalDeduction =
+    parseFloat(providentFundAmt) + parseFloat(args.bInfo.insurance);
+
+  const reportData = {
+    fName: args.bInfo.name,
+    designation: args.bInfo.designation,
+    month: args.month,
+    year: args.year,
+    basicScale: args.bInfo.basic_salary,
+    foodAllowance: args.bInfo.food_allowance,
+    oT: args.hInfo.ot_amount,
+    fuel: args.bInfo.fuel_allowance,
+    providentFund: providentFundAmt,
+    insurance: args.bInfo.insurance,
+    advance: args.hInfo.advance_amount,
+    totalAdd: totalAddition,
+    totalSub: totalDeduction
+  };
+  reportW.show();
+  reportW.webContents.send("reportDataSend", reportData);
 });

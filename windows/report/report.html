@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="../../node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="report.css" type="text/css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="salaryPrintWrapper">
+      <div class="salaryTitleHead">
+        <strong>Crupee Software Development Pvt.Ltd.</strong>
+        <span>Lazimpat Marga-3, Kathmandu</span>
+      </div>
+      <div class="employeeDetail">
+        <ul>
+          <li><strong>Employee Name: </strong> <span id="fullName"> </span></li>
+          <li><strong>Designation:</strong> <span id="designation"> </span></li>
+          <li><strong>Month & Year:</strong> <span id="dateTime"> </span></li>
+        </ul>
+      </div>
+      <div class="salaryTable table-responsive">
+        <table class="table-bordered table">
+          <thead>
+            <tr>
+              <td>Earnings</td>
+              <td></td>
+              <td>Deduction</td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Basic & Hour</td>
+              <td id="basicScale">0</td>
+              <td>Provident Fund</td>
+              <td id="providentFund">0</td>
+            </tr>
+            <tr>
+              <td>Food Allowance</td>
+              <td id="foodAllowance">0</td>
+              <td>Loan</td>
+              <td id="loan">0</td>
+            </tr>
+            <tr>
+              <td>OT (Sunday)</td>
+              <td id="overTime">0</td>
+              <td>Profession Tax</td>
+              <td id="pTax">0</td>
+            </tr>
+            <tr>
+              <td>Fuel</td>
+              <td id="fuelAllowance">0</td>
+              <td>Insurance</td>
+              <td id="insuranceAmt">0</td>
+            </tr>
+
+            <tr>
+              <td class="totalCalculation">Total Addition</td>
+              <td id="totalAddition">0</td>
+              <td class="totalCalculation">Total Deduction</td>
+              <td id="totalDeduction">0</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td class="totalCalculation">Net Salary</td>
+              <td id="netSalary">0</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="miscSalary">
+          Signature of employee:
+        </div>
+      </div>
+    </div>
+    <script>
+      require("./report");
+    </script>
+  </body>
+</html>
