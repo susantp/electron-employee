@@ -243,7 +243,13 @@ $(document).ready(function(event) {
     let gSlip = document.getElementById("gSlip");
     gSlip.addEventListener("click", () => {
       // print();
-      console.log("Info: ", bInfo[0]); //working
+      ipcRenderer.send("report-data-collected", {
+        month: month,
+        year: selectedYear,
+        bInfo: bInfo[0],
+        hInfo: rows
+      });
+      // console.log("Info: ", bInfo[0]); //working
     });
   }
 

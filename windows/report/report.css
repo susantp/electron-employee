@@ -1,0 +1,14 @@
+.salaryPrintWrapper{width: 70%; min-height: 300px; margin: 30px auto; padding: 5%; border: 1px solid #c1c1c1;}
+.salaryTitleHead{text-align: center;  margin-bottom: 50px}
+.salaryTitleHead strong{font-weight: bold;  font-size: 30px;}
+.salaryTitleHead span{font-size: 18px}
+.salaryTitleHead strong, .salaryTitleHead span{display: block}
+.employeeDetail ul li{display: list-item; list-style: none; margin-bottom: 15px}
+.employeeDetail ul li strong{font-weight: bold; color: dodgerblue; width: 20%; display: inline-block}
+.employeeDetail ul li span{color: darkblue; width: 60%; display: inline-block}
+table{margin: 5% auto}
+table>thead>tr>td{font-weight: bold}
+.miscSalary{margin: 10% 0px 5% 0px}
+.totalCalculation{
+    font-weight: bold;
+}

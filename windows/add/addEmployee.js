@@ -1,5 +1,4 @@
 const { ipcRenderer, dialog } = require("electron");
-const app = require("electron").remote.app;
 const fs = require("fs");
 const connection = require("./../../service/db-connection");
 const os = require("os");
@@ -9,7 +8,6 @@ const mkdirp = require("mkdirp");
 var empDetailsBtn = document.getElementById("empDetailsBtn");
 const submitForm = document.querySelector("#form");
 var uploadedFilePath = null;
-var fileElement = null;
 var fileElement = null;
 submitForm.addEventListener("submit", event => {
   event.preventDefault();
