@@ -70,7 +70,7 @@ $(document).ready(function() {
                 "Something unwanted happened when querying history: ",
                 error
               );
-            console.log(historyRows, profileRows);
+            // console.log(historyRows, profileRows);
             let pFundAmt =
               parseFloat(profileRows[0].basic_salary) *
               parseFloat(profileRows[0].provident_fund / 100);
