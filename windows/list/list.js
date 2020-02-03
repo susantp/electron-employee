@@ -102,6 +102,12 @@ handleDeleteButton = id => {
   });
 };
 
+let openReportWindow = document.getElementById("gReport");
+openReportWindow.addEventListener("click", e => {
+  e.preventDefault();
+  ipcRenderer.send("openReportWindow");
+});
+
 let addEmployeeBtn = document.getElementById("addEmployee");
 addEmployeeBtn.addEventListener("click", e => {
   e.preventDefault();
@@ -115,9 +121,6 @@ generateSalary.addEventListener("click", e => {
   ipcRenderer.send("open-generate-salary");
 });
 
-handleMouseOver = () => {
-  document.getElementById("addEmployee").innerHTML = "Add employee profile";
-};
 ipcRenderer.on("rowAdded", () => {
   location.reload();
 });

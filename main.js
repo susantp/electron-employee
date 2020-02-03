@@ -339,33 +339,37 @@ ipcMain.on("handleDelete", (event, args) => {
   });
 });
 
-ipcMain.on("report-data-collected", (event, args) => {
-  let providentFundAmt =
-    parseFloat(args.bInfo.basic_salary) *
-    (parseFloat(args.bInfo.provident_fund) / 100);
-  let totalAddition =
-    parseFloat(args.bInfo.basic_salary) +
-    parseFloat(args.bInfo.food_allowance) +
-    parseFloat(args.hInfo.ot_amount) +
-    parseFloat(args.bInfo.fuel_allowance);
-  let totalDeduction =
-    parseFloat(providentFundAmt) + parseFloat(args.bInfo.insurance);
-
-  const reportData = {
-    fName: args.bInfo.name,
-    designation: args.bInfo.designation,
-    month: args.month,
-    year: args.year,
-    basicScale: args.bInfo.basic_salary,
-    foodAllowance: args.bInfo.food_allowance,
-    oT: args.hInfo.ot_amount,
-    fuel: args.bInfo.fuel_allowance,
-    providentFund: providentFundAmt,
-    insurance: args.bInfo.insurance,
-    advance: args.hInfo.advance_amount,
-    totalAdd: totalAddition,
-    totalSub: totalDeduction
-  };
+ipcMain.on("openReportWindow", () => {
   reportW.show();
-  reportW.webContents.send("reportDataSend", reportData);
 });
+
+// ipcMain.on("report-data-collected", (event, args) => {
+//   let providentFundAmt =
+//     parseFloat(args.bInfo.basic_salary) *
+//     (parseFloat(args.bInfo.provident_fund) / 100);
+//   let totalAddition =
+//     parseFloat(args.bInfo.basic_salary) +
+//     parseFloat(args.bInfo.food_allowance) +
+//     parseFloat(args.hInfo.ot_amount) +
+//     parseFloat(args.bInfo.fuel_allowance);
+//   let totalDeduction =
+//     parseFloat(providentFundAmt) + parseFloat(args.bInfo.insurance);
+//
+//   const reportData = {
+//     fName: args.bInfo.name,
+//     designation: args.bInfo.designation,
+//     month: args.month,
+//     year: args.year,
+//     basicScale: args.bInfo.basic_salary,
+//     foodAllowance: args.bInfo.food_allowance,
+//     oT: args.hInfo.ot_amount,
+//     fuel: args.bInfo.fuel_allowance,
+//     providentFund: providentFundAmt,
+//     insurance: args.bInfo.insurance,
+//     advance: args.hInfo.advance_amount,
+//     totalAdd: totalAddition,
+//     totalSub: totalDeduction
+//   };
+//   reportW.show();
+//   reportW.webContents.send("reportDataSend", reportData);
+// });

@@ -1,0 +1,4 @@
+.optSelect {visibility: hidden;}
+.employeeDetail ul li strong{font-weight: bold; color: dodgerblue; width: 40%; display: inline-block}
+.employeeDetail ul li span{color: darkblue; width: 40%; display: inline-block}
+.salaryPrintWrapper{width: 70%}

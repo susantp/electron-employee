@@ -1,4 +1,4 @@
-const { ipcRenderer, dialog } = require("electron");
+const { ipcRenderer } = require("electron");
 const fs = require("fs");
 const connection = require("./../../service/db-connection");
 const os = require("os");
@@ -27,10 +27,8 @@ submitForm.addEventListener("submit", event => {
   if (uploadedFilePath) {
     var fileName = uploadedFilePath.replace(/^.*[\\\/]/, "");
 
-    mkdirp(os.homedir() + "/crupee-salary-info/images/", function(err) {
-      if (err) {
-        console.log("error: " + err);
-      } else {
+    mkdirp(os.homedir() + "/crupee-salary-info/images/")
+      .then(made => {
         fs.copyFile(
           uploadedFilePath,
           os.homedir() + "\\crupee-salary-info\\images\\" + fileName,
@@ -40,8 +38,10 @@ submitForm.addEventListener("submit", event => {
             }
           }
         );
-      }
-    });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   $query =

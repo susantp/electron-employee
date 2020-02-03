@@ -225,7 +225,6 @@ $(document).ready(function(event) {
     let cell7 = row.insertCell(6);
     let cell8 = row.insertCell(7);
     let cell9 = row.insertCell(8);
-    let cell10 = row.insertCell(9);
 
     // add html to call
     cell1.innerHTML = month;
@@ -237,20 +236,6 @@ $(document).ready(function(event) {
     cell7.innerHTML = foodAllowance;
     cell8.innerHTML = fuelAllowance;
     cell9.innerHTML = rows.total_amount;
-    cell10.innerHTML =
-      "<button class='btn btn-info' id='gSlip'>Generate Slip</button>";
-
-    let gSlip = document.getElementById("gSlip");
-    gSlip.addEventListener("click", () => {
-      // print();
-      ipcRenderer.send("report-data-collected", {
-        month: month,
-        year: selectedYear,
-        bInfo: bInfo[0],
-        hInfo: rows
-      });
-      // console.log("Info: ", bInfo[0]); //working
-    });
   }
 
   // reset table

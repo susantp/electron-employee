@@ -54,20 +54,16 @@ $(document).ready(function() {
     if (uploadedFilePath) {
       var fileName = uploadedFilePath.replace(/^.*[\\\/]/, "");
 
-      mkdirp(os.homedir() + "/crupee-salary-info/images/", function(err) {
-        if (err) {
-          console.log("error: " + err);
-        } else {
-          fs.copyFile(
-            uploadedFilePath,
-            os.homedir() + "\\crupee-salary-info\\images\\" + fileName,
-            error => {
-              if (error) {
-                console.log("File Copy Error: " + error);
-              }
+      mkdirp(os.homedir() + "/crupee-salary-info/images/").then(made => {
+        fs.copyFile(
+          uploadedFilePath,
+          os.homedir() + "\\crupee-salary-info\\images\\" + fileName,
+          error => {
+            if (error) {
+              console.log("File Copy Error: " + error);
             }
-          );
-        }
+          }
+        );
       });
     }
 
