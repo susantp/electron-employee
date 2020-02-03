@@ -12,6 +12,7 @@
       href="../../node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="report.css" type="text/css" />
+    <link rel="stylesheet" href="print.css" media="print" type="text/css" />
     <title></title>
   </head>
   <body>
@@ -51,6 +52,11 @@
 
       Select Employee:
       <select name="employee" id="employee"> </select>
+
+      <button id="gBtn" class="btn btn-primary">Generate</button>
+      <button class="btn btn-info" style="visibility: hidden" id="pBtn">
+        Print Report
+      </button>
     </div>
     <div class="salaryPrintWrapper">
       <div class="salaryTitleHead">
@@ -62,6 +68,10 @@
           <li><strong>Employee Name: </strong> <span id="fullName"> </span></li>
           <li><strong>Designation:</strong> <span id="designation"> </span></li>
           <li><strong>Month & Year:</strong> <span id="dateTime"> </span></li>
+          <li>
+            <strong>Report Generation Date:</strong>
+            <span id="rDateTime"> </span>
+          </li>
         </ul>
       </div>
       <div class="salaryTable table-responsive">
