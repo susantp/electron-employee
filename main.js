@@ -209,7 +209,7 @@ app.on("ready", () => {
     });
 
   // Open the DevTools.
-  reportW.webContents.openDevTools();
+  // reportW.webContents.openDevTools();
   // generateSalaryW.webContents.openDevTools();
 
   // Emitted when the window is closed.
