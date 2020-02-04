@@ -10,6 +10,7 @@ $(document).ready(function() {
   let gBtn = document.getElementById("gBtn");
   let pBtn = document.getElementById("pBtn");
   let rDateTime = document.getElementById("rDateTime");
+
   // to populate employee select list
   let $query = `SELECT id, name FROM employee_profile`;
   connection.query($query, (error, rows, field) => {
@@ -18,9 +19,23 @@ $(document).ready(function() {
       let opt = document.createElement("option");
       opt.value = rows[row].id;
       opt.innerHTML = rows[row].name;
-      employee.appendChild(opt);
+      employeeSelect.appendChild(opt);
     }
   });
+
+  // to populate employee select list
+  let hQuery = `SELECT DISTINCT year FROM employee_history`;
+  connection.query(hQuery, (error, rows, field) => {
+    if (error) console.log("error occur getting data ", error);
+    for (let row in rows) {
+      let opt = document.createElement("option");
+      opt.value = rows[row].year;
+      opt.innerHTML = rows[row].year;
+      yearSelect.appendChild(opt);
+    }
+    console.log(rows);
+  });
+
   pBtn.addEventListener("click", e => {
     e.preventDefault();
     pBtn.style.visibility = "hidden";
