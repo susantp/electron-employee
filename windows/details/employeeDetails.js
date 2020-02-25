@@ -1,6 +1,5 @@
 const { ipcRenderer } = require("electron");
 const connection = require("./../../service/db-connection");
-const app = require("electron").remote.app;
 const os = require("os");
 
 $(document).ready(function(event) {
@@ -197,14 +196,24 @@ $(document).ready(function(event) {
       }
     }
     // end of function
-
-    test1 = () => {
-      console.log(
-        "selected id is " + selectedUserId + "selected year is " + selectedYear
-      );
-    };
   });
-
+  $("body").on("click", ".deleteHistoryRecord", function(e) {
+    let historyIdToDelete = e.target.id;
+    ipcRenderer.send("historyDelete", historyIdToDelete);
+  });
+  ipcRenderer.on("historyDeleteApproved", (e, a) => {
+    let deleteApprovedId = a; // id of history
+    const deleteQuery = "DELETE FROM employee_history WHERE  id=?";
+    connection.query(deleteQuery, a, (error, rows, field) => {
+      // console.log(
+      //   "error: " + error,
+      //   "rows: " + rows.affectedRows,
+      //   "field: " + field
+      // );
+      if (error === null) {
+      }
+    });
+  });
   // insert table body
 
   function insertRow(rows, month) {
@@ -225,6 +234,7 @@ $(document).ready(function(event) {
     let cell7 = row.insertCell(6);
     let cell8 = row.insertCell(7);
     let cell9 = row.insertCell(8);
+    let cell10 = row.insertCell(9);
 
     // add html to call
     cell1.innerHTML = month;
@@ -236,6 +246,10 @@ $(document).ready(function(event) {
     cell7.innerHTML = foodAllowance;
     cell8.innerHTML = fuelAllowance;
     cell9.innerHTML = rows.total_amount;
+    cell10.innerHTML =
+      "<p class='btn btn-danger deleteHistoryRecord' id='" +
+      rows.id +
+      "'>Delete</p>";
   }
 
   // reset table
