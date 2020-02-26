@@ -344,6 +344,7 @@ ipcMain.on("openReportWindow", () => {
 });
 
 ipcMain.on("historyDelete", (event, a) => {
+  // console.log(a[1]);
   const options = {
     type: "warning",
     buttons: ["Yes", "No"],

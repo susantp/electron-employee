@@ -199,7 +199,8 @@ $(document).ready(function(event) {
   });
   $("body").on("click", ".deleteHistoryRecord", function(e) {
     let historyIdToDelete = e.target.id;
-    ipcRenderer.send("historyDelete", historyIdToDelete);
+
+    ipcRenderer.send("historyDelete", [historyIdToDelete, e.target.id]);
   });
   ipcRenderer.on("historyDeleteApproved", (e, a) => {
     let deleteApprovedId = a; // id of history
@@ -211,6 +212,9 @@ $(document).ready(function(event) {
       //   "field: " + field
       // );
       if (error === null) {
+        // console.log(document.getElementById(a[1]).parentElement.nodeName);
+        let parentOfButton = document.getElementById(a[1]).parentElement;
+        parentOfButton.parentElement.style.display = "none";
       }
     });
   });
