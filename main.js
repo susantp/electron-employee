@@ -343,6 +343,21 @@ ipcMain.on("openReportWindow", () => {
   reportW.show();
 });
 
+ipcMain.on("historyDelete", (event, a) => {
+  // console.log(a[1]);
+  const options = {
+    type: "warning",
+    buttons: ["Yes", "No"],
+    title: "Delete Record",
+    message: "You are going to delete record!!!",
+    detail: "Are you Sure?"
+  };
+  dialog.showMessageBox(detailW, options).then(resolve => {
+    if (resolve.response === 0) {
+      event.sender.send("historyDeleteApproved", a);
+    }
+  });
+});
 // ipcMain.on("report-data-collected", (event, args) => {
 //   let providentFundAmt =
 //     parseFloat(args.bInfo.basic_salary) *

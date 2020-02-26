@@ -33,7 +33,6 @@ $(document).ready(function() {
       opt.innerHTML = rows[row].year;
       yearSelect.appendChild(opt);
     }
-    console.log(rows);
   });
 
   pBtn.addEventListener("click", e => {
@@ -97,8 +96,10 @@ $(document).ready(function() {
               parseFloat(profileRows[0].fuel_allowance);
 
             let totalDeduction =
-              parseFloat(pFundAmt) + parseFloat(profileRows[0].insurance);
-
+              parseFloat(pFundAmt) +
+              parseFloat(profileRows[0].insurance) +
+              parseFloat(historyRows[0].advance_amount);
+            console.log(parseFloat(historyRows[0].advance_amount));
             $("#fullName").html(profileRows[0].name);
             $("#designation").html(profileRows[0].designation);
             $("#dateTime").html(monthSelectedText + ", " + yearSelectedValue);
