@@ -13,9 +13,8 @@
   "author": "Susant, Sudip & Rajesh",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^8.0.1",
+    "electron": "^8.0.2",
     "electron-packager": "^14.2.1",
-    "npm-check-updates": "^4.0.1",
     "prettier": "^1.19.1"
   },
   "dependencies": {

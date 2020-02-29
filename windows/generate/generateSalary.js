@@ -246,7 +246,7 @@ $(document).ready(function() {
     event.preventDefault();
     // insert into employee history table
     $query =
-      "INSERT INTO employee_history (e_id,year,month,working_hours,ot_amount,advance_amount,total_amount) VALUES (?,?,?,?,?,?,?)";
+      "INSERT INTO employee_history (e_id,year,month,working_hours,ot_amount,advance_amount,net_salary,total_amount) VALUES (?,?,?,?,?,?,?, ?)";
     connection.query(
       $query,
       [
@@ -256,6 +256,7 @@ $(document).ready(function() {
         totalWorkingHours,
         otAmount,
         advanceAmount,
+        netSalary,
         grandTotalSalary
       ],
       (error, rows, field) => {

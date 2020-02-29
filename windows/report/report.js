@@ -86,11 +86,11 @@ $(document).ready(function() {
               );
             // console.log(historyRows, profileRows);
             let pFundAmt =
-              parseFloat(profileRows[0].basic_salary) *
+              parseFloat(historyRows[0].net_salary) *
               parseFloat(profileRows[0].provident_fund / 100);
 
             let totalAddition =
-              parseFloat(profileRows[0].basic_salary) +
+              parseFloat(historyRows[0].net_salary) +
               parseFloat(profileRows[0].food_allowance) +
               parseFloat(historyRows[0] ? historyRows[0].ot_amount : 0) +
               parseFloat(profileRows[0].fuel_allowance);
@@ -103,7 +103,7 @@ $(document).ready(function() {
             $("#fullName").html(profileRows[0].name);
             $("#designation").html(profileRows[0].designation);
             $("#dateTime").html(monthSelectedText + ", " + yearSelectedValue);
-            $("#basicScale").html(profileRows[0].basic_salary);
+            $("#basicScale").html(historyRows[0].net_salary);
             $("#providentFund").html(pFundAmt);
             $("#foodAllowance").html(profileRows[0].food_allowance);
             $("#overTime").html(historyRows[0] ? historyRows[0].ot_amount : 0);
