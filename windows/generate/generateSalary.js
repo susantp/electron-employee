@@ -196,27 +196,27 @@ $(document).ready(function() {
       salaryDeductingPf =
         parseFloat(netSalaryAddingOt) -
         (parseFloat(pf) / 100) * parseFloat(netSalaryAddingOt);
-      $("#salaryDeductingPf").val(salaryDeductingPf);
+      $("#salaryDeductingPf").val(salaryDeductingPf.toFixed(2));
     }
 
     //salary deducting insurance
     if (salaryDeductingPf) {
       salaryDeductingInsurance = salaryDeductingPf - insurance;
-      $("#salaryDeductingInsurance").val(salaryDeductingInsurance);
+      $("#salaryDeductingInsurance").val(salaryDeductingInsurance.toFixed(2));
     }
 
     // salary adding food allowance
     if (salaryDeductingInsurance) {
       salaryAddingFood =
         parseFloat(salaryDeductingInsurance) + parseFloat(foodAllowance);
-      $("#salaryAfterFood").val(salaryAddingFood);
+      $("#salaryAfterFood").val(salaryAddingFood.toFixed(2));
     }
 
     // salary adding fuel allowance
     if (salaryAddingFood) {
       salaryAddingFuel =
         parseFloat(salaryAddingFood) + parseFloat(fuelAllowance);
-      $("#salaryAfterFuel").val(salaryAddingFuel);
+      $("#salaryAfterFuel").val(salaryAddingFuel.toFixed(2));
     }
   });
 
@@ -225,7 +225,7 @@ $(document).ready(function() {
     advanceAmount = $("#advanceAmount").val();
     if (salaryAddingFuel) {
       grandTotalSalary = salaryAddingFuel - advanceAmount;
-      $("#grandTotalSalary").val(grandTotalSalary);
+      $("#grandTotalSalary").val(grandTotalSalary.toFixed(2));
     }
   });
 
@@ -259,8 +259,8 @@ $(document).ready(function() {
         totalHoursExcluding,
         otAmount,
         advanceAmount,
-        netSalary,
-        grandTotalSalary
+        netSalary.toFixed(2),
+        grandTotalSalary.toFixed(2)
       ],
       (error, rows, field) => {
         let gSalaryW;
