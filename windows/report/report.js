@@ -79,11 +79,7 @@ $(document).ready(function() {
           employeeHistoryQuery,
           [yearSelectedValue, monthSelectedValue, employeeSelectedValue],
           (error, historyRows) => {
-            if (error == null || historyRows.length < 0) {
-              // console.error(
-              //   "Something unwanted happened when querying history: ",
-              //   error
-              // );
+            if (historyRows.length < 0) {
               reportW = remote.getCurrentWindow();
               const options = {
                 type: "info",
@@ -98,7 +94,6 @@ $(document).ready(function() {
                 }
               });
             } else {
-              // console.log(historyRows, profileRows);
               let pFundAmt =
                 parseFloat(historyRows[0].net_salary) *
                 parseFloat(profileRows[0].provident_fund / 100);
