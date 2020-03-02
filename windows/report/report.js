@@ -79,21 +79,7 @@ $(document).ready(function() {
           employeeHistoryQuery,
           [yearSelectedValue, monthSelectedValue, employeeSelectedValue],
           (error, historyRows) => {
-            if (historyRows.length < 0) {
-              reportW = remote.getCurrentWindow();
-              const options = {
-                type: "info",
-                buttons: ["Ok"],
-                title: "Empty Data",
-                message: "Zero Data to fetch",
-                detail:
-                  "There are not any data to show you, Arko month or year Choose gara hai!!!"
-              };
-              dialog.showMessageBox(reportW, options).then(resolve => {
-                if (resolve.response === 0) {
-                }
-              });
-            } else {
+            if (historyRows.length > 0) {
               let pFundAmt =
                 parseFloat(historyRows[0].net_salary) *
                 parseFloat(profileRows[0].provident_fund / 100);
@@ -108,7 +94,7 @@ $(document).ready(function() {
                 parseFloat(pFundAmt) +
                 parseFloat(profileRows[0].insurance) +
                 parseFloat(historyRows[0].advance_amount);
-              console.log(parseFloat(historyRows[0].advance_amount));
+              // console.log(parseFloat(historyRows[0].advance_amount));
               $("#fullName").html(profileRows[0].name);
               $("#designation").html(profileRows[0].designation);
               $("#dateTime").html(monthSelectedText + ", " + yearSelectedValue);
@@ -125,6 +111,20 @@ $(document).ready(function() {
               $("#netSalary").html(
                 parseFloat(totalAddition) - parseFloat(totalDeduction)
               );
+            } else {
+              reportW = remote.getCurrentWindow();
+              const options = {
+                type: "info",
+                buttons: ["Ok"],
+                title: "Empty Data",
+                message: "Zero Data to fetch",
+                detail:
+                  "There are not any data to show you, Arko month or year Choose gara hai!!!"
+              };
+              dialog.showMessageBox(reportW, options).then(resolve => {
+                if (resolve.response === 0) {
+                }
+              });
             }
           } //historyCallback Finish
         ); // employee history query

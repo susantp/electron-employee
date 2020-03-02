@@ -21,6 +21,8 @@ $(document).ready(function() {
   // hours after deducting absent hours
   var totalPresentHours;
 
+  // net present hours
+  var totalHoursExcluding;
   // basic salary of employee
   var basicSalary;
 
@@ -246,7 +248,7 @@ $(document).ready(function() {
     event.preventDefault();
     // insert into employee history table
     $query =
-      "INSERT INTO employee_history (e_id,year,month,working_hours,ot_amount,advance_amount,net_salary,total_amount) VALUES (?,?,?,?,?,?,?, ?)";
+      "INSERT INTO employee_history (e_id,year,month,working_hours, net_present_hours,ot_amount,advance_amount,net_salary,total_amount) VALUES (?,?,?,?,?,?,?,?,?)";
     connection.query(
       $query,
       [
@@ -254,6 +256,7 @@ $(document).ready(function() {
         selectedYear,
         selectedMonth,
         totalWorkingHours,
+        totalHoursExcluding,
         otAmount,
         advanceAmount,
         netSalary,
