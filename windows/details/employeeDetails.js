@@ -254,7 +254,7 @@ $(document).ready(function(event) {
     cell7.innerHTML = rows.ot_amount;
     cell8.innerHTML = foodAllowance;
     cell9.innerHTML = fuelAllowance;
-    cell10.innerHTML = rows.total_amount;
+    cell10.innerHTML = parseFloat(rows.total_amount).toFixed(2);
     cell11.innerHTML =
       "<p class='btn btn-danger deleteHistoryRecord' id='" +
       rows.id +
