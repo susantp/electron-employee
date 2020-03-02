@@ -1,5 +1,5 @@
-const electron = require("electron");
-const ipcRenderer = electron.ipcRenderer;
+const { ipcRenderer, remote } = require("electron");
+const { dialog } = require("electron").remote;
 const $ = require("jquery");
 const connection = require("./../../service/db-connection");
 
@@ -79,42 +79,54 @@ $(document).ready(function() {
           employeeHistoryQuery,
           [yearSelectedValue, monthSelectedValue, employeeSelectedValue],
           (error, historyRows) => {
-            if (error)
-              console.error(
-                "Something unwanted happened when querying history: ",
-                error
+            if (historyRows.length > 0) {
+              let pFundAmt =
+                parseFloat(historyRows[0].net_salary) *
+                parseFloat(profileRows[0].provident_fund / 100);
+
+              let totalAddition =
+                parseFloat(historyRows[0].net_salary) +
+                parseFloat(profileRows[0].food_allowance) +
+                parseFloat(historyRows[0] ? historyRows[0].ot_amount : 0) +
+                parseFloat(profileRows[0].fuel_allowance);
+
+              let totalDeduction =
+                parseFloat(pFundAmt) +
+                parseFloat(profileRows[0].insurance) +
+                parseFloat(historyRows[0].advance_amount);
+              // console.log(parseFloat(historyRows[0].advance_amount));
+              $("#fullName").html(profileRows[0].name);
+              $("#designation").html(profileRows[0].designation);
+              $("#dateTime").html(monthSelectedText + ", " + yearSelectedValue);
+              $("#basicScale").html(historyRows[0].net_salary);
+              $("#providentFund").html(pFundAmt);
+              $("#foodAllowance").html(profileRows[0].food_allowance);
+              $("#overTime").html(
+                historyRows[0] ? historyRows[0].ot_amount : 0
               );
-            // console.log(historyRows, profileRows);
-            let pFundAmt =
-              parseFloat(profileRows[0].basic_salary) *
-              parseFloat(profileRows[0].provident_fund / 100);
-
-            let totalAddition =
-              parseFloat(profileRows[0].basic_salary) +
-              parseFloat(profileRows[0].food_allowance) +
-              parseFloat(historyRows[0] ? historyRows[0].ot_amount : 0) +
-              parseFloat(profileRows[0].fuel_allowance);
-
-            let totalDeduction =
-              parseFloat(pFundAmt) +
-              parseFloat(profileRows[0].insurance) +
-              parseFloat(historyRows[0].advance_amount);
-            console.log(parseFloat(historyRows[0].advance_amount));
-            $("#fullName").html(profileRows[0].name);
-            $("#designation").html(profileRows[0].designation);
-            $("#dateTime").html(monthSelectedText + ", " + yearSelectedValue);
-            $("#basicScale").html(profileRows[0].basic_salary);
-            $("#providentFund").html(pFundAmt);
-            $("#foodAllowance").html(profileRows[0].food_allowance);
-            $("#overTime").html(historyRows[0] ? historyRows[0].ot_amount : 0);
-            $("#fuelAllowance").html(profileRows[0].fuel_allowance);
-            $("#insuranceAmt").html(profileRows[0].insurance);
-            $("#totalAddition").html(totalAddition);
-            $("#totalDeduction").html(totalDeduction);
-            $("#netSalary").html(
-              parseFloat(totalAddition) - parseFloat(totalDeduction)
-            );
-          }
+              $("#fuelAllowance").html(profileRows[0].fuel_allowance);
+              $("#insuranceAmt").html(profileRows[0].insurance);
+              $("#totalAddition").html(totalAddition);
+              $("#totalDeduction").html(totalDeduction);
+              $("#netSalary").html(
+                parseFloat(totalAddition) - parseFloat(totalDeduction)
+              );
+            } else {
+              reportW = remote.getCurrentWindow();
+              const options = {
+                type: "info",
+                buttons: ["Ok"],
+                title: "Empty Data",
+                message: "Zero Data to fetch",
+                detail:
+                  "There are not any data to show you, Arko month or year Choose gara hai!!!"
+              };
+              dialog.showMessageBox(reportW, options).then(resolve => {
+                if (resolve.response === 0) {
+                }
+              });
+            }
+          } //historyCallback Finish
         ); // employee history query
       }
     );

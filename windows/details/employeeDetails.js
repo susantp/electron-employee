@@ -15,6 +15,9 @@ $(document).ready(function(event) {
   //working hours
   var workingHours;
 
+  //net present Hours
+  var netPresentHours;
+
   // insurance
   var insurance;
 
@@ -239,18 +242,20 @@ $(document).ready(function(event) {
     let cell8 = row.insertCell(7);
     let cell9 = row.insertCell(8);
     let cell10 = row.insertCell(9);
+    let cell11 = row.insertCell(10);
 
     // add html to call
     cell1.innerHTML = month;
     cell2.innerHTML = basicSalary;
     cell3.innerHTML = rows.working_hours;
-    cell4.innerHTML = insurance;
-    cell5.innerHTML = providentFund;
-    cell6.innerHTML = rows.ot_amount;
-    cell7.innerHTML = foodAllowance;
-    cell8.innerHTML = fuelAllowance;
-    cell9.innerHTML = rows.total_amount;
-    cell10.innerHTML =
+    cell4.innerHTML = rows.net_present_hours;
+    cell5.innerHTML = insurance;
+    cell6.innerHTML = providentFund;
+    cell7.innerHTML = rows.ot_amount;
+    cell8.innerHTML = foodAllowance;
+    cell9.innerHTML = fuelAllowance;
+    cell10.innerHTML = rows.total_amount;
+    cell11.innerHTML =
       "<p class='btn btn-danger deleteHistoryRecord' id='" +
       rows.id +
       "'>Delete</p>";
