@@ -98,6 +98,9 @@ $(document).ready(function() {
               $("#fullName").html(profileRows[0].name);
               $("#designation").html(profileRows[0].designation);
               $("#dateTime").html(monthSelectedText + ", " + yearSelectedValue);
+              $("#basicHourLabel").html(
+                "Basic & Hour (" + historyRows[0].net_present_hours + " hours)"
+              );
               $("#basicScale").html(
                 parseFloat(historyRows[0].net_salary).toFixed(2)
               );
