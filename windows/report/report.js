@@ -98,18 +98,23 @@ $(document).ready(function() {
               $("#fullName").html(profileRows[0].name);
               $("#designation").html(profileRows[0].designation);
               $("#dateTime").html(monthSelectedText + ", " + yearSelectedValue);
-              $("#basicScale").html(historyRows[0].net_salary);
+              $("#basicScale").html(
+                parseFloat(historyRows[0].net_salary).toFixed(2)
+              );
               $("#providentFund").html(pFundAmt);
               $("#foodAllowance").html(profileRows[0].food_allowance);
               $("#overTime").html(
                 historyRows[0] ? historyRows[0].ot_amount : 0
               );
               $("#fuelAllowance").html(profileRows[0].fuel_allowance);
-              $("#insuranceAmt").html(profileRows[0].insurance);
-              $("#totalAddition").html(totalAddition);
-              $("#totalDeduction").html(totalDeduction);
+              $("#insuranceAmt").html(
+                parseFloat(profileRows[0].insurance).toFixed(2)
+              );
+              $("#totalAddition").html(parseFloat(totalAddition).toFixed(2));
+              $("#totalDeduction").html(parseFloat(totalDeduction).toFixed(2));
               $("#netSalary").html(
-                parseFloat(totalAddition) - parseFloat(totalDeduction)
+                parseFloat(totalAddition).toFixed(2) -
+                  parseFloat(totalDeduction).toFixed(2)
               );
             } else {
               reportW = remote.getCurrentWindow();
